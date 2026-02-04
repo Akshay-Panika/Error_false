@@ -43,6 +43,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.dispose();
   }
 
+
+  final _service = [
+    {
+      "name": "App Development",
+      "des": "Mobile apps for Android & iOS",
+    },
+    {
+      "name": "Web Development",
+      "des": "Modern responsive websites",
+    },
+    {
+      "name": "UI/UX Design",
+      "des": "User friendly app & web designs",
+    },
+    {
+      "name": "Backend Development",
+      "des": "APIs and server side logic",
+    },
+    {
+      "name": "Digital Marketing",
+      "des": "SEO & online promotion",
+    },
+    {
+      "name": "Graphic Design",
+      "des": "Logos, banners & creatives",
+    },
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     final dimensions = MediaQuery.of(context).size;
@@ -195,7 +224,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   children: [
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 16),
-                      height: 650,
+                      // height: 650,
+                      height: screenWidth >= 700?650:1050,
                       decoration: BoxDecoration(
                         color: Colors.deepOrange,
                         borderRadius: BorderRadius.only(
@@ -205,6 +235,165 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           bottomRight: Radius.circular(20),
                         )
                       ),
+
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+
+                            final isDesktop = constraints.maxWidth >= 700;
+
+                            return Flex(
+                              direction: isDesktop ? Axis.horizontal : Axis.vertical,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+
+                                // LEFT BOX (ICON)
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 18, vertical: 8),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.white),
+                                          borderRadius: BorderRadius.circular(30),
+                                        ),
+                                        child: const Text(
+                                          "ERROR FALSE",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+
+                                       SizedBox(height: 50),
+
+                                      RichText(
+                                        text: const TextSpan(
+                                          style: TextStyle(
+                                            fontSize: 42,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                          children: [
+                                            TextSpan(text: "The Beauty Behind  "),
+                                            TextSpan(
+                                              text: "IT Services.",
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 20),
+
+                                      Padding(
+                                        padding:  EdgeInsets.only(left: 8.0,
+                                        right: screenWidth >= 700?200:8),
+                                        child: const Text(
+                                          "Where your interests international networks intersect provid custom software solutions for any value software.",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            height: 1.6,
+                                          ),
+                                        ),
+                                      ),
+
+                                       SizedBox(height: screenWidth >= 700?100:50),
+
+                                      Row(
+                                        spacing:  50,
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.white,
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 40, vertical: 18),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(40),
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              "EXPLORE MORE",
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Container(
+                                            padding: const EdgeInsets.all(10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: Icon(Icons.play_circle),
+                                          ),
+
+                                          if(screenWidth >= 700)
+                                          Text(
+                                            'Watch Video',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                              decoration: TextDecoration.underline,
+                                              decorationColor: Colors.white,
+                                              decorationThickness: 2,
+                                            ),
+                                          )
+
+                                        ],
+                                      ),
+
+
+
+                                    ],
+                                  ),
+                                ),
+
+                                SizedBox(
+                                  width: isDesktop ? 50 : 0,
+                                  height: isDesktop ? 0 : 40,
+                                ),
+
+                                // RIGHT CONTENT
+                                Container(
+                                  width: isDesktop ? 500 : double.infinity,
+                                  height: 500,
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.image_not_supported_outlined,
+                                      size: 80,
+                                      color: Colors.transparent,
+                                    ),
+                                  ),
+                                ),
+
+
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+
                     ),
 
                      SizedBox(height: screenWidth >= 700?150:550),
@@ -212,7 +401,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
 
                 GridView.builder(
-                  itemCount: 6,
+                  itemCount: _service.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 50),
@@ -224,6 +413,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
 
                   itemBuilder: (context, index) {
+                    final list = _service[index];
                     return Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -234,6 +424,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             blurRadius: 6,
                             offset: Offset(0, 4),
                           )
+                        ],
+                      ),
+                      child: Column(
+                        spacing: 8,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(list['name'].toString(), style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
+                          Text(list['des'].toString(), style: TextStyle(fontSize: 14,fontWeight: FontWeight.w600, color: Colors.grey.shade700),),
                         ],
                       ),
                     );
@@ -603,7 +802,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           SliverToBoxAdapter(
             child: Container(
               height: 100,
-              margin: const EdgeInsets.symmetric(horizontal: 150),
+              margin:  EdgeInsets.symmetric(horizontal: screenWidth >= 700?150:16),
               padding: const EdgeInsets.symmetric(horizontal: 30),
               decoration: BoxDecoration(
                 color: Colors.black12,
