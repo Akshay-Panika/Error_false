@@ -1,3 +1,4 @@
+import 'package:error_false/features/bloc/screen/bloc_screen.dart';
 import 'package:error_false/features/home/screen/home_screen.dart';
 import 'package:error_false/features/project/screen/project_screen.dart';
 import 'package:error_false/features/service/screen/service_screen.dart';
@@ -177,9 +178,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ? ServiceScreen()
                     : selectedIndex == 2
                     ? ProjectScreen()
-                    : Container(
-                  height: 500,
-                  color: Colors.deepOrangeAccent,
+                    : BlocScreen(
+
                 ),
               ),
             ),
