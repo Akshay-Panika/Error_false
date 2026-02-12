@@ -11,6 +11,7 @@ class AboutScreen extends StatelessWidget {
     return Flex(
       direction: width >=700 ? Axis.horizontal : Axis.vertical,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
@@ -48,10 +49,13 @@ class AboutScreen extends StatelessWidget {
             ],
           ),
         ),
-
-        Image.asset(
-          height: height*0.9,
-          'assets/profile/akshay_panika_laptop.jpeg',)
+        Container(
+          height:height*0.95,
+          width: width>=700?width*0.35:double.infinity,
+          decoration: BoxDecoration(
+            image: DecorationImage(image: AssetImage('assets/profile/akshay_panika_laptop.jpeg',),fit:BoxFit.fill)
+          ),
+        )
       ],
     );
   }

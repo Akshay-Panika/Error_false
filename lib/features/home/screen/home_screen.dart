@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
     return Column(
       children: [
         Container(
-          height:  width >=700 ? height*0.75:height*0.99,
+          height:  width >=700 ? height*0.8:1000,
           child: Flex(
             direction: width >=700 ? Axis.horizontal : Axis.vertical,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
