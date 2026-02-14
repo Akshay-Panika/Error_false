@@ -52,8 +52,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
 
         children: [
-          Text('Extensive Services', style: TextStyle(fontSize: width >=700? 55:40,fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),),
-          SizedBox(height: 60,),
+          Text('Extensive Services', style: TextStyle(fontSize: width >=700? 55:30,fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),),
+          SizedBox(height: width >= 700 ?60:20,),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(
@@ -102,16 +102,22 @@ class _ServiceScreenState extends State<ServiceScreen> {
                               ),
                             ),
                             Positioned.fill(child: Column(
-                              // spacing: 15,
+
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Icon(
-                                  service['icon'] as IconData,
-                                  size: 30,
-                                  color: Colors.deepOrangeAccent,
+                                Padding(
+                                  padding:  EdgeInsets.only(top: width >= 700 ? 0.0:20),
+                                  child: Icon(
+                                    service['icon'] as IconData,
+                                    size: 40,
+                                    color: Colors.deepOrangeAccent,
+                                  ),
                                 ),
-                                Text('${service['title']}'),
+                                Padding(
+                                  padding:  EdgeInsets.only(top: width >= 700 ? 0.0:20),
+                                  child: Text('${service['title']}', style: TextStyle(fontWeight: FontWeight.w600,color: Colors.deepOrangeAccent),),
+                                ),
                               ],
                             ))
                           ],
@@ -135,7 +141,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
               /// Left Side
               Container(
-                width: constraints.maxWidth * 0.3,
+                width:  constraints.maxWidth * 0.3,
                 height: 600,
                 decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
@@ -149,7 +155,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 width: constraints.maxWidth * 0.4,
                 child: Padding(
                   padding:  EdgeInsets.only(top: height*0.1),
-                  child: _contentSection01(isDesktop),
+                  child: _contentSection01(height,width,isDesktop),
                 ),
               ),
             ],
@@ -160,7 +166,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
             children: [
               Container(
                 // width: double.infinity,
-                width: constraints.maxWidth * 0.65,
+                width: constraints.maxWidth * 0.9,
                 height:550,
                 decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
@@ -169,7 +175,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
               const SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: _contentSection01(isDesktop),
+                child: _contentSection01(height,width,isDesktop),
               ),
             ],
           );
@@ -191,7 +197,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     width: constraints.maxWidth * 0.4,
                     child: Padding(
                       padding:  EdgeInsets.only(top: height*0.1),
-                      child: _contentSection02(isDesktop),
+                      child: _contentSection02(height,width,isDesktop),
                     ),
                   ),
                   SizedBox(width: constraints.maxWidth * 0.05),
@@ -211,7 +217,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 children: [
                   Container(
                     // width: double.infinity,
-                    width: constraints.maxWidth * 0.65,
+                    width: constraints.maxWidth * 0.9,
                     height:550,
                     decoration: BoxDecoration(
                         image: DecorationImage(image: AssetImage('assets/service/akshay_panika_back.jpeg'),fit:BoxFit.cover)
@@ -220,7 +226,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   const SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: _contentSection02(isDesktop),
+                    child: _contentSection02(height,width,isDesktop),
                   ),
                 ],
               );
@@ -254,7 +260,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     width: constraints.maxWidth * 0.4,
                     child: Padding(
                       padding:  EdgeInsets.only(top: height*0.1),
-                      child: _contentSection03(isDesktop),
+                      child: _contentSection03(height,width,isDesktop),
                     ),
                   ),
                 ],
@@ -265,7 +271,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 children: [
                   Container(
                     // width: double.infinity,
-                    width: constraints.maxWidth * 0.65,
+                    width: constraints.maxWidth * 0.9,
                     height:550,
                     decoration: BoxDecoration(
                         image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
@@ -274,7 +280,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   const SizedBox(height: 40),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: _contentSection03(isDesktop),
+                    child: _contentSection03(height,height,isDesktop),
                   ),
                 ],
               );
@@ -288,15 +294,15 @@ class _ServiceScreenState extends State<ServiceScreen> {
   }
 }
 
-Widget _contentSection01(bool isDesktop) {
+Widget _contentSection01(double height,double weight, bool isDesktop) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
 
       Text(
-        '01',
+       '01',
         style: TextStyle(
-          fontSize: 80,
+          fontSize:  weight>= 700?80:40,
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
@@ -305,7 +311,7 @@ Widget _contentSection01(bool isDesktop) {
       Text(
         'Premium Development\nSolutions',
         style: TextStyle(
-          fontSize: isDesktop ? 50 : 36,
+          fontSize: isDesktop ? 50 : 30,
           fontWeight: FontWeight.w900,
           color: Colors.deepOrangeAccent,
           height: 1.1,
@@ -328,7 +334,7 @@ Widget _contentSection01(bool isDesktop) {
     ],
   );
 }
-Widget _contentSection02(bool isDesktop) {
+Widget _contentSection02(double height,double weight,bool isDesktop) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -336,7 +342,7 @@ Widget _contentSection02(bool isDesktop) {
       Text(
         '02',
         style: TextStyle(
-          fontSize: 80,
+          fontSize:  weight>= 700?80:40,
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
@@ -345,7 +351,7 @@ Widget _contentSection02(bool isDesktop) {
       Text(
         'Top Notch\nProfessionals',
         style: TextStyle(
-          fontSize: isDesktop ? 50 : 36,
+          fontSize: isDesktop ? 50 : 30,
           fontWeight: FontWeight.w900,
           color: Colors.deepOrangeAccent,
           height: 1.1,
@@ -368,7 +374,7 @@ Widget _contentSection02(bool isDesktop) {
     ],
   );
 }
-Widget _contentSection03(bool isDesktop) {
+Widget _contentSection03(double height,double weight,bool isDesktop) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -376,7 +382,7 @@ Widget _contentSection03(bool isDesktop) {
       Text(
         '03',
         style: TextStyle(
-          fontSize: 80,
+          fontSize:  weight>= 700?80:40,
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
@@ -385,7 +391,7 @@ Widget _contentSection03(bool isDesktop) {
       Text(
         '24/7 Development &\nMarketing Center',
         style: TextStyle(
-          fontSize: isDesktop ? 50 : 36,
+          fontSize: isDesktop ? 50 : 30,
           fontWeight: FontWeight.w900,
           color: Colors.deepOrangeAccent,
           height: 1.1,

@@ -15,10 +15,10 @@ class BookNowScreen extends StatelessWidget {
           width: double.infinity,
 
           child: isDesktop
-              ? _desktopLayout()
+              ? _desktopLayout(context)
               : isTablet
-              ? _tabletLayout()
-              : _mobileLayout(),
+              ? _tabletLayout(context)
+              : _mobileLayout(context),
         );
       },
     );
@@ -26,7 +26,7 @@ class BookNowScreen extends StatelessWidget {
 
   // ================= DESKTOP =================
 
-  Widget _desktopLayout() {
+  Widget _desktopLayout(BuildContext context) {
     return SizedBox(
       height: 850,
       child: Row(
@@ -47,9 +47,9 @@ class BookNowScreen extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
+              padding:  EdgeInsets.symmetric(
                   horizontal: 80, vertical: 80),
-              child: _formSection(),
+              child: _formSection(context),
             ),
           ),
         ],
@@ -58,7 +58,7 @@ class BookNowScreen extends StatelessWidget {
   }
 
 
-  Widget _tabletLayout() {
+  Widget _tabletLayout(BuildContext context) {
     return Column(
       children: [
         SizedBox(
@@ -75,13 +75,13 @@ class BookNowScreen extends StatelessWidget {
         Padding(
           padding:
           const EdgeInsets.symmetric(horizontal: 40, vertical: 60),
-          child: _formSection(),
+          child: _formSection(context),
         ),
       ],
     );
   }
 
-  Widget _mobileLayout() {
+  Widget _mobileLayout(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -99,22 +99,24 @@ class BookNowScreen extends StatelessWidget {
           Padding(
             padding:
             const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            child: _formSection(),
+            child: _formSection(context),
           ),
         ],
       ),
     );
   }
 
-  Widget _formSection() {
+  Widget _formSection(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 40),
-        const Text(
+         Text(
           "Get In Touch",
           style: TextStyle(
-            fontSize: 48,
+            fontSize: width >= 700 ?48:30,
             fontWeight: FontWeight.bold,
             color: Colors.deepOrangeAccent,
           ),
@@ -134,21 +136,21 @@ class BookNowScreen extends StatelessWidget {
         /// Full Name + Email Row
         Row(
           children: [
-            Expanded(child: _inputField("Full Name", "Full name")),
+            Expanded(child: _inputField(context,"Full Name", "Full name")),
             const SizedBox(width: 20),
-            Expanded(child: _inputField("Email Address", "Email address")),
+            Expanded(child: _inputField(context,"Email Address", "Email address")),
           ],
         ),
 
         const SizedBox(height: 25),
 
         /// Phone
-        _inputField("Your Phone Number", "Phone number"),
+        _inputField(context,"Your Phone Number", "Phone number"),
 
         const SizedBox(height: 25),
 
         /// Message
-        _inputField("Message", "Write Your Queries", maxLines: 3),
+        _inputField(context,"Message", "Write Your Queries", maxLines: 3),
 
         const SizedBox(height: 35),
 
@@ -162,9 +164,9 @@ class BookNowScreen extends StatelessWidget {
               ),
             ),
             onPressed: () {},
-            child: const Text(
+            child:  Text(
               "Submit Now",
-              style: TextStyle(fontSize: 16, color: Colors.white),
+              style: TextStyle(fontSize:  width >= 700 ?16:14, color: Colors.white),
             ),
           ),
         )
@@ -172,23 +174,27 @@ class BookNowScreen extends StatelessWidget {
     );
   }
 
-  Widget _inputField(String label, String hint,
+  Widget _inputField( BuildContext context,String label, String hint,
       {int maxLines = 1}) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: const TextStyle(
-              fontSize: 16,
+          style:  TextStyle(
+              fontSize: width >= 700 ?16:12,
               fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 10),
         TextField(
           maxLines: maxLines,
+          style: TextStyle(fontSize: width >= 700 ?16:12,),
           decoration: InputDecoration(
             hintText: hint,
             filled: true,
+            hintStyle: TextStyle(fontSize: width >= 700 ?16:12,),
             fillColor: Colors.deepOrangeAccent.withOpacity(0.1),
             contentPadding:
             const EdgeInsets.symmetric(horizontal: 20, vertical: 18),

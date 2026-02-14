@@ -16,10 +16,10 @@ class FooterScreen extends StatelessWidget {
           color: Colors.deepOrangeAccent.withOpacity(0.16),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
           child: isDesktop
-              ? _desktopLayout()
+              ? _desktopLayout(isDesktop)
               : isTablet
-              ? _tabletLayout()
-              : _mobileLayout(),
+              ? _tabletLayout(isDesktop)
+              : _mobileLayout(isDesktop),
         );
       },
     );
@@ -27,58 +27,58 @@ class FooterScreen extends StatelessWidget {
 
   // ================= DESKTOP =================
 
-  Widget _desktopLayout() {
+  Widget _desktopLayout(bool isDesktop) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(flex: 2, child: _aboutSection()),
-        Expanded(flex: 2, child: _contactSection()),
-        Expanded(flex: 2, child: _socialSection()),
+        Expanded(flex: 2, child: _aboutSection(isDesktop)),
+        Expanded(flex: 2, child: _contactSection(isDesktop)),
+        Expanded(flex: 2, child: _socialSection(isDesktop)),
       ],
     );
   }
 
   // ================= TABLET =================
 
-  Widget _tabletLayout() {
+  Widget _tabletLayout(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _aboutSection(),
+        _aboutSection(isDesktop),
         const SizedBox(height: 40),
-        _contactSection(),
+        _contactSection(isDesktop),
         const SizedBox(height: 40),
-        _socialSection(),
+        _socialSection(isDesktop),
       ],
     );
   }
 
   // ================= MOBILE =================
 
-  Widget _mobileLayout() {
+  Widget _mobileLayout(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _aboutSection(),
+        _aboutSection(isDesktop),
         const SizedBox(height: 30),
-        _contactSection(),
+        _contactSection(isDesktop),
         const SizedBox(height: 30),
-        _socialSection(),
+        _socialSection(isDesktop),
       ],
     );
   }
 
   // ================= ABOUT =================
 
-  Widget _aboutSection() {
+  Widget _aboutSection(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children:  [
         Text(
           "Montor",
           style: TextStyle(
-            fontSize: 48,
+            fontSize: isDesktop ?48:30,
             fontWeight: FontWeight.bold,
             color: Colors.deepOrangeAccent,
           ),
@@ -92,7 +92,7 @@ class FooterScreen extends StatelessWidget {
                 "health outcomes with advanced technology and trusted expertise. "
                 "Providing trusted medical solutions for a healthier tomorrow.",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: isDesktop ?16:14,
               height: 1.6,
               color:Colors.grey.shade700,
             ),
@@ -104,25 +104,25 @@ class FooterScreen extends StatelessWidget {
 
   // ================= CONTACT =================
 
-  Widget _contactSection() {
+  Widget _contactSection(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+         Text(
           "GET IN TOUCH WITH US",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: isDesktop ?20:16,
             fontWeight: FontWeight.bold,
             color: Colors.deepOrangeAccent,
           ),
         ),
         const SizedBox(height: 25),
         _contactItem(Icons.location_on,
-            "8819 Ohio South Gate, CA 90280"),
+            "Madhya Pradesh, India"),
         const SizedBox(height: 20),
-        _contactItem(Icons.phone, "+1 386-688-3295"),
+        _contactItem(Icons.phone, "+91 8989207770"),
         const SizedBox(height: 20),
-        _contactItem(Icons.email, "info@montor.com"),
+        _contactItem(Icons.email, "errorfalse.tech@gmail.com"),
       ],
     );
   }
@@ -151,14 +151,14 @@ class FooterScreen extends StatelessWidget {
 
   // ================= SOCIAL =================
 
-  Widget _socialSection() {
+  Widget _socialSection(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+         Text(
           "OUR SOCIAL MEDIA",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: isDesktop ?20:16,
             fontWeight: FontWeight.bold,
             color:Colors.deepOrangeAccent,
           ),
@@ -176,10 +176,10 @@ class FooterScreen extends StatelessWidget {
 
         const SizedBox(height: 35),
 
-        const Text(
+         Text(
           "NEWSLETTER",
           style: TextStyle(
-            fontSize: 20,
+            fontSize: isDesktop ?20:16,
             fontWeight: FontWeight.bold,
             color: Colors.deepOrangeAccent,
           ),

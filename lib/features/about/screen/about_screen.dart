@@ -19,11 +19,13 @@ class AboutScreen extends StatelessWidget {
             spacing: 20,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if(width <=700)
+              SizedBox(height: 50,),
               Row(
                 spacing: 14,
                 children: [
-                  Text('About', style: TextStyle(color: Colors.deepOrangeAccent,fontSize: 60,fontWeight: FontWeight.bold),),
-                  Text('Montor', style: TextStyle(fontSize: 60,fontWeight: FontWeight.bold),),
+                  Text('About', style: TextStyle(color: Colors.deepOrangeAccent,fontSize: width >=700? 60:30,fontWeight: FontWeight.bold),),
+                  Text('Montor', style: TextStyle(fontSize: width >=700? 60:30,fontWeight: FontWeight.bold),),
                 ],
               ),
               Text('Montor Web is a wireframe kit that has more than 15 popular categories and more than 200 screens from each category,\nSeaWire Web deserves to be your partner in working on projects.\nSeaWire Web is a wireframe kit that has more than 15 popular categories and more than 200 screens from each category,',

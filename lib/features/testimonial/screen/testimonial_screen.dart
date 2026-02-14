@@ -43,6 +43,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
         return Column(
           children: [
+            if(isDesktop)
             SizedBox(height: height * 0.15),
 
             isDesktop
@@ -103,7 +104,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
         Text(
           'Why People Love Us!',
           style: TextStyle(
-            fontSize: isDesktop ? 46 : 32,
+            fontSize: isDesktop ? 46 : 30,
             color: Colors.deepOrangeAccent,
             fontWeight: FontWeight.bold,
           ),

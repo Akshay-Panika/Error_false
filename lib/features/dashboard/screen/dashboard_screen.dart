@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../about/screen/about_screen.dart';
 import '../../book_now/screen/book_now_screen.dart';
 import '../../footer/screen/footer_screen.dart';
@@ -26,6 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey _footerKey = GlobalKey();
 
   void _scrollToSection(GlobalKey key) {
+    Navigator.pop(context); // drawer close
     Scrollable.ensureVisible(
       key.currentContext!,
       duration: const Duration(milliseconds: 600),
@@ -39,7 +39,66 @@ class _DashboardScreenState extends State<DashboardScreen> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.deepOrangeAccent.withOpacity(0.1),
-       body: Column(
+      endDrawer: Drawer(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+
+        child: Align(
+          alignment: Alignment.topRight,
+          child: Material(
+            color: Colors.white,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12),
+              bottomLeft: Radius.circular(12),
+            ),
+            child: SizedBox(
+              width: 150, // 👈 change as needed
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+
+                  /// CLOSE BUTTON
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.close, color: Colors.red),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+
+                  /// MENU ITEMS
+                  ListTile(
+                    title: const Text("Home"),
+                    onTap: () => _scrollToSection(_homeKey),
+                  ),
+                  ListTile(
+                    title: const Text("About"),
+                    onTap: () => _scrollToSection(_aboutKey),
+                  ),
+                  ListTile(
+                    title: const Text("Service"),
+                    onTap: () => _scrollToSection(_serviceKey),
+                  ),
+                  ListTile(
+                    title: const Text("Testimonial"),
+                    onTap: () => _scrollToSection(_testimonialKey),
+                  ),
+                  ListTile(
+                    title: const Text("Book Now"),
+                    onTap: () => _scrollToSection(_bookKey),
+                  ),
+
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+
+      body: Column(
          children: [
            Container(
              height:  width >=700? height*0.08:height*0.08,
@@ -101,42 +160,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
                        ),
                      )
 
-                     // TextButton(onPressed: (){}, child: Text('Home',style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600),)),
-                     // TextButton(onPressed: (){}, child: Text('About',style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600),)),
-                     // TextButton(onPressed: (){}, child: Text('Service',style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600),)),
-                     // TextButton(onPressed: (){}, child: Text('Testimonial',style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600),)),
-                     // TextButton(onPressed: (){}, child: Text('Blog',style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600),)),
-                     //
-                     // ElevatedButton(
-                     //   style: ElevatedButton.styleFrom(
-                     //     backgroundColor: Colors.deepOrangeAccent, // button color
-                     //     shape: RoundedRectangleBorder(
-                     //       borderRadius: BorderRadius.circular(8), // radius change kar sakte ho
-                     //     ),
-                     //     padding: EdgeInsets.symmetric(horizontal: 16),
-                     //   ),
-                     //   onPressed: () {},
-                     //   child: Text(
-                     //     'Book Now',
-                     //     style: TextStyle(
-                     //       color: Colors.white,
-                     //       fontWeight: FontWeight.w500,
-                     //     ),
-                     //   ),
-                     // )
-
-
                    ],
                  ),
 
-                 if(width <=700 )
-                   Container(
-                     padding: EdgeInsets.all(5),
-                       decoration: BoxDecoration(
-                         color: Colors.deepOrangeAccent,
-                         borderRadius: BorderRadius.circular(5)
+                 if (width <= 700)
+                   Builder(
+                     builder: (context) => GestureDetector(
+                       onTap: () => Scaffold.of(context).openEndDrawer(),
+                       // onTap: () => Scaffold.of(context).openDrawer(),
+                       child: Container(
+                         padding: const EdgeInsets.all(6),
+                         decoration: BoxDecoration(
+                           color: Colors.deepOrangeAccent,
+                           borderRadius: BorderRadius.circular(5),
+                         ),
+                         child: const Icon(Icons.menu,
+                             color: Colors.white, size: 18),
                        ),
-                       child: Icon(Icons.menu, color: Colors.white,size: 18,))
+                     ),
+                   )
                ],
              ),
            ),
