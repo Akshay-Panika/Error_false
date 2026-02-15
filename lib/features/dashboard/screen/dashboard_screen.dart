@@ -25,6 +25,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey _footerKey = GlobalKey();
 
   void _scrollToSection(GlobalKey key) {
+    if(MediaQuery.of(context).size.width <= 700)
     Navigator.pop(context); // drawer close
     Scrollable.ensureVisible(
       key.currentContext!,

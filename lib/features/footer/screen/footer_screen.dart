@@ -74,11 +74,11 @@ class FooterScreen extends StatelessWidget {
   Widget _aboutSection(bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:  [
+      children: [
         Text(
-          "Montor",
+          "Akshay Panika",
           style: TextStyle(
-            fontSize: isDesktop ?48:30,
+            fontSize: isDesktop ? 48 : 30,
             fontWeight: FontWeight.bold,
             color: Colors.deepOrangeAccent,
           ),
@@ -87,14 +87,15 @@ class FooterScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 25),
           child: Text(
-            "Montor is committed to providing reliable and innovative medical "
-                "solutions to enhance patient care. Our goal is to ensure better "
-                "health outcomes with advanced technology and trusted expertise. "
-                "Providing trusted medical solutions for a healthier tomorrow.",
+            "I am a passionate software developer focused on building modern, "
+                "user-friendly, and scalable applications. I enjoy turning ideas into "
+                "real-world digital products using technologies like Flutter and Django. "
+                "My aim is to create efficient solutions that deliver great user "
+                "experiences while continuously learning and improving my skills.",
             style: TextStyle(
-              fontSize: isDesktop ?16:14,
+              fontSize: isDesktop ? 16 : 14,
               height: 1.6,
-              color:Colors.grey.shade700,
+              color: Colors.grey.shade700,
             ),
           ),
         ),

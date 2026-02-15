@@ -218,7 +218,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   Container(
                     // width: double.infinity,
                     width: constraints.maxWidth * 0.9,
-                    height:550,
+                    height:600,
                     decoration: BoxDecoration(
                         image: DecorationImage(image: AssetImage('assets/service/akshay_panika_back.jpeg'),fit:BoxFit.cover)
                     ),
@@ -294,22 +294,22 @@ class _ServiceScreenState extends State<ServiceScreen> {
   }
 }
 
-Widget _contentSection01(double height,double weight, bool isDesktop) {
+Widget _contentSection01(double height, double weight, bool isDesktop) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
 
       Text(
-       '01',
+        '01',
         style: TextStyle(
-          fontSize:  weight>= 700?80:40,
+          fontSize: weight >= 700 ? 80 : 40,
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
       ),
 
       Text(
-        'Premium Development\nSolutions',
+        'Passionate Developer\n& Problem Solver',
         style: TextStyle(
           fontSize: isDesktop ? 50 : 30,
           fontWeight: FontWeight.w900,
@@ -321,10 +321,11 @@ Widget _contentSection01(double height,double weight, bool isDesktop) {
       const SizedBox(height: 20),
 
       Text(
-        'We build powerful, scalable, and modern digital solutions tailored to your business needs. '
-            'From crafting strong brand identity to developing high-performance websites and applications, '
-            'our team ensures quality, innovation, and growth. With expert SEO and marketing strategies, '
-            'we help transform your ideas into revenue-generating digital products.',
+        'I specialize in building modern, scalable, and user-friendly applications that solve real-world problems. '
+            'With hands-on experience in Flutter and Django, I focus on writing clean, efficient code and delivering '
+            'smooth user experiences. I enjoy transforming ideas into functional products and continuously improving '
+            'my skills by learning new technologies and best practices. My goal is to create impactful digital solutions '
+            'that provide value and meaningful experiences to users.',
         style: TextStyle(
           fontSize: 16,
           height: 1.6,
@@ -374,7 +375,7 @@ Widget _contentSection02(double height,double weight,bool isDesktop) {
     ],
   );
 }
-Widget _contentSection03(double height,double weight,bool isDesktop) {
+Widget _contentSection03(double height, double weight, bool isDesktop) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -382,14 +383,14 @@ Widget _contentSection03(double height,double weight,bool isDesktop) {
       Text(
         '03',
         style: TextStyle(
-          fontSize:  weight>= 700?80:40,
+          fontSize: weight >= 700 ? 80 : 40,
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
       ),
 
       Text(
-        '24/7 Development &\nMarketing Center',
+        'Continuous Learning\n& Innovation',
         style: TextStyle(
           fontSize: isDesktop ? 50 : 30,
           fontWeight: FontWeight.w900,
@@ -401,10 +402,11 @@ Widget _contentSection03(double height,double weight,bool isDesktop) {
       const SizedBox(height: 20),
 
       Text(
-        'We build powerful, scalable, and modern digital solutions tailored to your business needs. '
-            'From crafting strong brand identity to developing high-performance websites and applications, '
-            'our team ensures quality, innovation, and growth. With expert SEO and marketing strategies, '
-            'we help transform your ideas into revenue-generating digital products.',
+        'I believe growth comes from continuous learning and consistent practice. '
+            'I actively explore new technologies, frameworks, and tools to improve my development workflow '
+            'and stay aligned with modern industry standards. By working on real-world projects and solving '
+            'practical problems, I keep enhancing my technical expertise and creativity. My focus is always '
+            'on building efficient, reliable, and user-focused digital experiences.',
         style: TextStyle(
           fontSize: 16,
           height: 1.6,

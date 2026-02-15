@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget animatedCount(int endValue) {
     return TweenAnimationBuilder<int>(
       tween: IntTween(begin: 0, end: endValue),
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 5),
       builder: (context, value, child) {
         return Text(
           '$value',
