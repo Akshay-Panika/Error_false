@@ -60,7 +60,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                 SizedBox(width: constraints.maxWidth * 0.05),
                 Container(
                   width: constraints.maxWidth * 0.3,
-                  height: 600,
+                  height: 650,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(

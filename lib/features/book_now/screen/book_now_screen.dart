@@ -8,23 +8,18 @@ class BookNowScreen extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isDesktop = constraints.maxWidth > 1000;
-        bool isTablet =
-            constraints.maxWidth > 600 && constraints.maxWidth <= 1000;
 
-        return Container(
+        return SizedBox(
           width: double.infinity,
-
           child: isDesktop
               ? _desktopLayout(context)
-              : isTablet
-              ? _tabletLayout(context)
               : _mobileLayout(context),
         );
       },
     );
   }
 
-  // ================= DESKTOP =================
+
 
   Widget _desktopLayout(BuildContext context) {
     return SizedBox(
@@ -54,30 +49,6 @@ class BookNowScreen extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-
-  Widget _tabletLayout(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 400,width: 500,
-          child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/service/akshay_panika_okay.jpeg"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 40, vertical: 60),
-          child: _formSection(context),
-        ),
-      ],
     );
   }
 
@@ -112,7 +83,7 @@ class BookNowScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 40),
+        const SizedBox(height: 60),
          Text(
           "Get In Touch",
           style: TextStyle(
@@ -121,7 +92,7 @@ class BookNowScreen extends StatelessWidget {
             color: Colors.deepOrangeAccent,
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 10),
          Text(
           "Have a project in mind that you think we’d be a great fit for it?\n"
               "We’d love to know what you’re thinking",
