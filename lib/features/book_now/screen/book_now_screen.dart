@@ -1,4 +1,7 @@
+import 'package:error_false/core/widget/screen_helper.dart';
 import 'package:flutter/material.dart';
+import '../../../core/widget/responsive_font.dart';
+
 
 class BookNowScreen extends StatelessWidget {
   const BookNowScreen({super.key});
@@ -7,171 +10,87 @@ class BookNowScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        bool isDesktop = constraints.maxWidth > 1000;
+        if (ScreenHelper.isDesktop(context)) {
+          return Container(
+            height: 700,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Image.asset('assets/service/akshay_panika_okay.jpeg'),
+                ),
+                Expanded(child: _formSection(context)),
+              ],
+            ),
+          );
+        }
 
-        return SizedBox(
-          width: double.infinity,
-          child: isDesktop
-              ? _desktopLayout(context)
-              : _mobileLayout(context),
+        if (ScreenHelper.isTablet(context)) {
+          return Container(
+            height: 1000,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Image.asset('assets/service/akshay_panika_okay.jpeg'),
+                ),
+                Expanded(child: _formSection(context)),
+              ],
+            ),
+          );
+        }
+
+        return Container(
+          height: 1000,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Expanded(
+                child: Image.asset('assets/service/akshay_panika_okay.jpeg'),
+              ),
+              Expanded(child: _formSection(context)),
+            ],
+          ),
         );
       },
     );
   }
 
-
-
-  Widget _desktopLayout(BuildContext context) {
-    return SizedBox(
-      height: 850,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          
-          Container(
-            margin: EdgeInsets.all(50),
-            height: 650,width: 500,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/service/akshay_panika_okay.jpeg"),
-                fit: BoxFit.fill,
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding:  EdgeInsets.symmetric(
-                  horizontal: 80, vertical: 80),
-              child: _formSection(context),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _mobileLayout(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 600,width: 600,
-            child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/service/akshay_panika_okay.jpeg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-            child: _formSection(context),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _formSection(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 60),
-         Text(
-          "Get In Touch",
-          style: TextStyle(
-            fontSize: width >= 700 ?48:30,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepOrangeAccent,
-          ),
-        ),
-        const SizedBox(height: 10),
-         Text(
-          "Have a project in mind that you think we’d be a great fit for it?\n"
-              "We’d love to know what you’re thinking",
-          style: TextStyle(
-            fontSize: 16,
-            height: 1.6,
-            color: Colors.grey.shade700,
-          ),
-        ),
-        const SizedBox(height: 40),
-
-        /// Full Name + Email Row
-        Row(
+        const SizedBox(height: 50),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: _inputField(context,"Full Name", "Full name")),
-            const SizedBox(width: 20),
-            Expanded(child: _inputField(context,"Email Address", "Email address")),
+             Text(
+              "Book a Consultation",
+              style: TextStyle(
+                fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
+                color: Colors.deepOrangeAccent,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              "Scan the QR code or click the button below to connect with us directly on WhatsApp.",
+              style: TextStyle(
+                  fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+                  color: Colors.grey.shade700),
+            ),
           ],
         ),
 
-        const SizedBox(height: 25),
+        const SizedBox(height: 50),
 
-        /// Phone
-        _inputField(context,"Your Phone Number", "Phone number"),
-
-        const SizedBox(height: 25),
-
-        /// Message
-        _inputField(context,"Message", "Write Your Queries", maxLines: 3),
-
-        const SizedBox(height: 35),
-
-        SizedBox(
-          height: 50,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.deepOrangeAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            onPressed: () {},
-            child:  Text(
-              "Submit Now",
-              style: TextStyle(fontSize:  width >= 700 ?16:14, color: Colors.white),
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _inputField( BuildContext context,String label, String hint,
-      {int maxLines = 1}) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style:  TextStyle(
-              fontSize: width >= 700 ?16:12,
-              fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 10),
-        TextField(
-          maxLines: maxLines,
-          style: TextStyle(fontSize: width >= 700 ?16:12,),
-          decoration: InputDecoration(
-            hintText: hint,
-            filled: true,
-            hintStyle: TextStyle(fontSize: width >= 700 ?16:12,),
-            fillColor: Colors.deepOrangeAccent.withOpacity(0.1),
-            contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(6),
-              borderSide: BorderSide.none,
+        Container(
+          height: 300,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/service/whatsapp_qr.jpeg'),
             ),
           ),
         ),

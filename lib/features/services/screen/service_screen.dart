@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/widget/responsive_font.dart';
+import '../../../core/widget/screen_helper.dart';
+
 
 class ServiceScreen extends StatefulWidget {
   const ServiceScreen({super.key});
@@ -45,264 +48,239 @@ class _ServiceScreenState extends State<ServiceScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
 
-        children: [
-          Text('Extensive Services', style: TextStyle(fontSize: width >=700? 55:30,fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),),
-          SizedBox(height: width >= 700 ?60:20,),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Center(
-              child: GridView.builder(
-                itemCount: _services.length,
-                shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: width >=700 ?6:2,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20
-                  ),
-                  itemBuilder: (context, index) {
-                  final service = _services[index];
-                    bool isActive =
-                        hoveredIndex == index || selectedIndex == index;
+      children: [
+        if(ScreenHelper.isMobile(context))
+          SizedBox(height: 50,),
+        Text('Extensive Services', style: TextStyle(
+            fontSize: RFont.size(context, 26, tablet: 40, desktop: 50),
+            fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),),
 
-                    return MouseRegion(
-                      onEnter: (_) {
+        if(!ScreenHelper.isMobile(context))
+        SizedBox(height: 50,),
+
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Center(
+            child: GridView.builder(
+              itemCount: _services.length,
+              shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    // crossAxisCount: width >=700 ?6:2,
+                  crossAxisCount: ScreenHelper.isDesktop(context) ?6:ScreenHelper.isTablet(context)?4:2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20
+                ),
+                itemBuilder: (context, index) {
+                final service = _services[index];
+                  bool isActive =
+                      hoveredIndex == index || selectedIndex == index;
+
+                  return MouseRegion(
+                    onEnter: (_) {
+                      setState(() {
+                        hoveredIndex = index;
+                      });
+                    },
+                    onExit: (_) {
+                      setState(() {
+                        hoveredIndex = null;
+                      });
+                    },
+                    child: GestureDetector(
+                      onTap: () {
                         setState(() {
-                          hoveredIndex = index;
+                          selectedIndex = index;
                         });
                       },
-                      onExit: (_) {
-                        setState(() {
-                          hoveredIndex = null;
-                        });
-                      },
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                        },
-                        child: Stack(
-                          alignment: Alignment.topCenter,
-                          children: [
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              height: isActive ?200:120,width: isActive ?200:120,
-                              decoration: BoxDecoration(
-                                color: Colors.deepOrangeAccent.withOpacity(0.16),
-                                border: Border.all(color: Colors.deepOrangeAccent,width: 0.3),
-                                // borderRadius: BorderRadius.circular(8),
-                                shape: isActive? BoxShape.rectangle: BoxShape.circle
-                              ),
+                      child: Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: isActive ?200:120,width: isActive ?200:120,
+                            decoration: BoxDecoration(
+                              color: Colors.deepOrangeAccent.withOpacity(0.16),
+                              border: Border.all(color: Colors.deepOrangeAccent,width: 0.3),
+                              // borderRadius: BorderRadius.circular(8),
+                              shape: isActive? BoxShape.rectangle: BoxShape.circle
                             ),
-                            Positioned.fill(child: Column(
+                          ),
+                          Positioned.fill(child: Column(
 
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding:  EdgeInsets.only(top: width >= 700 ? 0.0:20),
-                                  child: Icon(
-                                    service['icon'] as IconData,
-                                    size: 40,
-                                    color: Colors.deepOrangeAccent,
-                                  ),
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:  EdgeInsets.only(top: width >= 700 ? 0.0:20),
+                                child: Icon(
+                                  service['icon'] as IconData,
+                                  size: 40,
+                                  color: Colors.deepOrangeAccent,
                                 ),
-                                Padding(
-                                  padding:  EdgeInsets.only(top: width >= 700 ? 0.0:20),
-                                  child: Text('${service['title']}', style: TextStyle(fontWeight: FontWeight.w600,color: Colors.deepOrangeAccent),),
-                                ),
-                              ],
-                            ))
-                          ],
-                        ),
+                              ),
+                              Padding(
+                                padding:  EdgeInsets.only(top: width >= 700 ? 0.0:20),
+                                child: Text('${service['title']}', style: TextStyle(fontWeight: FontWeight.w600,color: Colors.deepOrangeAccent),),
+                              ),
+                            ],
+                          ))
+                        ],
                       ),
-                    );
-                  },),
+                    ),
+                  );
+                },),
+          ),
+        ),
+
+        LayoutBuilder(
+       builder: (context, constraints) {
+
+        if(ScreenHelper.isDesktop(context)){
+          return Container(
+            height: 700,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
+                Expanded(child:  _contentSection01(context))
+              ],
             ),
-          ),
-
-         LayoutBuilder(
-        builder: (context, constraints) {
-
-          bool isDesktop = constraints.maxWidth >= 700;
-
-          return isDesktop
-              ? Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              /// Left Side
-              Container(
-                width:  constraints.maxWidth * 0.3,
-                height: 600,
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
-                ),
-              ),
-
-              SizedBox(width: constraints.maxWidth * 0.05),
-
-              /// Right Side
-              SizedBox(
-                width: constraints.maxWidth * 0.4,
-                child: Padding(
-                  padding:  EdgeInsets.only(top: height*0.1),
-                  child: _contentSection01(height,width,isDesktop),
-                ),
-              ),
-            ],
-          )
-              : Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                // width: double.infinity,
-                width: constraints.maxWidth * 0.9,
-                height:550,
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
-                ),
-              ),
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: _contentSection01(height,width,isDesktop),
-              ),
-            ],
           );
-        },
-      ),
+        }
 
-          LayoutBuilder(
-            builder: (context, constraints) {
+        if(ScreenHelper.isTablet(context)){
+          return Container(
+            height: 800,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
+                Expanded(child:  _contentSection01(context))
+              ],
+            ),
+          );
+        }
 
-              bool isDesktop = constraints.maxWidth >= 700;
-
-              return isDesktop
-                  ? Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  SizedBox(
-                    width: constraints.maxWidth * 0.4,
-                    child: Padding(
-                      padding:  EdgeInsets.only(top: height*0.1),
-                      child: _contentSection02(height,width,isDesktop),
-                    ),
-                  ),
-                  SizedBox(width: constraints.maxWidth * 0.05),
-                  Container(
-                    width: constraints.maxWidth * 0.3,
-                    height: 600,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/service/akshay_panika_back.jpeg'),fit:BoxFit.cover)
-                    ),
-                  ),
-
-                ],
-              )
-                  : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    // width: double.infinity,
-                    width: constraints.maxWidth * 0.9,
-                    height:600,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/service/akshay_panika_back.jpeg'),fit:BoxFit.cover)
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: _contentSection02(height,width,isDesktop),
-                  ),
-                ],
-              );
-            },
+        return Container(
+          height: 640,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
+              Expanded(child:  _contentSection01(context))
+            ],
           ),
+        );
 
-          LayoutBuilder(
-            builder: (context, constraints) {
+       },
+    ),
+        LayoutBuilder(
+       builder: (context, constraints) {
 
-              bool isDesktop = constraints.maxWidth >= 700;
+        if(ScreenHelper.isDesktop(context)){
+          return Container(
+            height: 700,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              children: [
+                Expanded(child:  _contentSection02(context)),
+                Expanded(child: Image.asset('assets/service/akshay_panika_back.jpeg')),
+              ],
+            ),
+          );
+        }
 
-              return isDesktop
-                  ? Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+        if(ScreenHelper.isTablet(context)){
+          return Container(
+            height: 800,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Expanded(child: Image.asset('assets/service/akshay_panika_back.jpeg')),
+                Expanded(child:  _contentSection02(context)),
+              ],
+            ),
+          );
+        }
 
-                  /// Left Side
-                  Container(
-                    width: constraints.maxWidth * 0.3,
-                    height: 600,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
-                    ),
-                  ),
-
-                  SizedBox(width: constraints.maxWidth * 0.05),
-
-                  /// Right Side
-                  SizedBox(
-                    width: constraints.maxWidth * 0.4,
-                    child: Padding(
-                      padding:  EdgeInsets.only(top: height*0.1),
-                      child: _contentSection03(height,width,isDesktop),
-                    ),
-                  ),
-                ],
-              )
-                  : Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    // width: double.infinity,
-                    width: constraints.maxWidth * 0.9,
-                    height:550,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage('assets/service/akshay_panika_okay.jpeg'),fit:BoxFit.cover)
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: _contentSection03(height,height,isDesktop),
-                  ),
-                ],
-              );
-            },
+        return Container(
+          height: 640,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Expanded(child: Image.asset('assets/service/akshay_panika_back.jpeg')),
+              Expanded(child:  _contentSection02(context)),
+            ],
           ),
+        );
+
+       },
+    ),
+        LayoutBuilder(
+          builder: (context, constraints) {
 
 
-      ],
-      ),
+            if(ScreenHelper.isDesktop(context)){
+              return Container(
+                height: 700,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  children: [
+                    Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
+                    Expanded(child:  _contentSection03(context))
+                  ],
+                ),
+              );
+            }
+
+            if(ScreenHelper.isTablet(context)){
+              return Container(
+                height: 800,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
+                    Expanded(child:  _contentSection03(context))
+                  ],
+                ),
+              );
+            }
+
+            return Container(
+              height: 640,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
+                  Expanded(child:  _contentSection03(context))
+                ],
+              ),
+            );
+
+          },
+        ),
+
+    ],
     );
   }
 }
 
-Widget _contentSection01(double height, double weight, bool isDesktop) {
+Widget _contentSection01(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment:  MainAxisAlignment.center,
     children: [
 
       Text(
         '01',
         style: TextStyle(
-          fontSize: weight >= 700 ? 80 : 40,
+          fontSize: RFont.size(context, 30, tablet: 40, desktop: 60),
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
@@ -311,7 +289,7 @@ Widget _contentSection01(double height, double weight, bool isDesktop) {
       Text(
         'Passionate Developer\n& Problem Solver',
         style: TextStyle(
-          fontSize: isDesktop ? 50 : 30,
+          fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           fontWeight: FontWeight.w900,
           color: Colors.deepOrangeAccent,
           height: 1.1,
@@ -327,23 +305,24 @@ Widget _contentSection01(double height, double weight, bool isDesktop) {
             'my skills by learning new technologies and best practices. My goal is to create impactful digital solutions '
             'that provide value and meaningful experiences to users.',
         style: TextStyle(
-          fontSize: 16,
           height: 1.6,
+          fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
           color: Colors.grey.shade700,
         ),
       ),
     ],
   );
 }
-Widget _contentSection02(double height,double weight,bool isDesktop) {
+Widget _contentSection02(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
 
       Text(
         '02',
         style: TextStyle(
-          fontSize:  weight>= 700?80:40,
+          fontSize: RFont.size(context, 30, tablet: 40, desktop: 60),
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
@@ -352,7 +331,7 @@ Widget _contentSection02(double height,double weight,bool isDesktop) {
       Text(
         'Top Notch\nProfessionals',
         style: TextStyle(
-          fontSize: isDesktop ? 50 : 30,
+          fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           fontWeight: FontWeight.w900,
           color: Colors.deepOrangeAccent,
           height: 1.1,
@@ -367,7 +346,7 @@ Widget _contentSection02(double height,double weight,bool isDesktop) {
             'our team ensures quality, innovation, and growth. With expert SEO and marketing strategies, '
             'we help transform your ideas into revenue-generating digital products.',
         style: TextStyle(
-          fontSize: 16,
+          fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
           height: 1.6,
           color: Colors.grey.shade700,
         ),
@@ -375,15 +354,16 @@ Widget _contentSection02(double height,double weight,bool isDesktop) {
     ],
   );
 }
-Widget _contentSection03(double height, double weight, bool isDesktop) {
+Widget _contentSection03(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
 
       Text(
         '03',
         style: TextStyle(
-          fontSize: weight >= 700 ? 80 : 40,
+          fontSize: RFont.size(context, 30, tablet: 40, desktop: 60),
           color: Colors.grey,
           fontWeight: FontWeight.w900,
         ),
@@ -392,7 +372,7 @@ Widget _contentSection03(double height, double weight, bool isDesktop) {
       Text(
         'Continuous Learning\n& Innovation',
         style: TextStyle(
-          fontSize: isDesktop ? 50 : 30,
+          fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           fontWeight: FontWeight.w900,
           color: Colors.deepOrangeAccent,
           height: 1.1,
@@ -408,7 +388,7 @@ Widget _contentSection03(double height, double weight, bool isDesktop) {
             'practical problems, I keep enhancing my technical expertise and creativity. My focus is always '
             'on building efficient, reliable, and user-focused digital experiences.',
         style: TextStyle(
-          fontSize: 16,
+          fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
           height: 1.6,
           color: Colors.grey.shade700,
         ),

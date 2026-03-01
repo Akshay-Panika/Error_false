@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:error_false/core/widget/screen_helper.dart';
 import 'package:flutter/material.dart';
+import '../../../core/widget/responsive_font.dart';
+
 
 class TestimonialScreen extends StatefulWidget {
   const TestimonialScreen({super.key});
@@ -40,82 +43,68 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isDesktop = constraints.maxWidth >= 700;
-
-        return Column(
-          children: [
-            if(isDesktop)
-            SizedBox(height: height * 0.15),
-
-            isDesktop
-                ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        
+        if(ScreenHelper.isDesktop(context)){
+          return Container(
+            height: 550,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
               children: [
-                SizedBox(
-                  width: constraints.maxWidth * 0.4,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: height * 0.05),
-                    child: _contentSection(isDesktop),
-                  ),
-                ),
-                SizedBox(width: constraints.maxWidth * 0.05),
-                Container(
-                  width: constraints.maxWidth * 0.3,
-                  height: 650,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/profile/akshay_panika-removebg-preview.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-            )
-                : Column(
-              children: [
-                Container(
-                  width: constraints.maxWidth * 0.8,
-                  height:height*0.8,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/profile/akshay_panika-removebg-preview.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: _contentSection(isDesktop),
-                ),
+                Expanded(child: _contentSection()),
+                Expanded(child: Image.asset('assets/profile/akshay_panika-removebg-preview.png'))
               ],
             ),
-          ],
+          );
+        }
+
+        if(ScreenHelper.isTablet(context)){
+          return Container(
+            height: 800,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                Expanded(child: Image.asset('assets/profile/akshay_panika-removebg-preview.png')),
+                Expanded(child: _contentSection()),
+              ],
+            ),
+          );
+        }
+
+        return Container(
+          height: 700,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Expanded(child: Image.asset('assets/profile/akshay_panika-removebg-preview.png')),
+              SizedBox(height: 10,),
+              Expanded(child: _contentSection()),
+            ],
+          ),
         );
       },
     );
   }
-
-  Widget _contentSection(bool isDesktop) {
+  
+  Widget _contentSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           'Why People Love Us!',
           style: TextStyle(
-            fontSize: isDesktop ? 46 : 30,
             color: Colors.deepOrangeAccent,
             fontWeight: FontWeight.bold,
+            fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           ),
         ),
-        const SizedBox(height: 25),
+
 
         /// Carousel
         CarouselSlider(
           carouselController: _controller,
           options: CarouselOptions(
-            height: isDesktop ? 260 : 240,
+           height: 240,
             autoPlay: true,
             enlargeCenterPage: false,
             viewportFraction: 1,
@@ -146,11 +135,11 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                 const SizedBox(height: 25),
                 Row(
                   children: [
-                    const CircleAvatar(
+                     CircleAvatar(
                       radius: 28,
-                      backgroundColor: Colors.white,
+                      backgroundColor: Colors.deepOrange.shade100,
                       child: Icon(Icons.person,
-                          color: Colors.grey),
+                          color: Colors.white),
                     ),
                     const SizedBox(width: 12),
                     Column(
@@ -176,7 +165,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
           }).toList(),
         ),
 
-        const SizedBox(height: 20),
+
 
         /// Dots Indicator
         Row(
@@ -196,7 +185,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
           }).toList(),
         ),
 
-        const SizedBox(height: 20),
+
 
         /// Arrow Buttons
         Row(

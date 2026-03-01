@@ -202,7 +202,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                      child: const AboutScreen(),
                    ),
 
-                   SizedBox(height: height*0.15),
 
                    // service
                    Container(
@@ -222,7 +221,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                      child: const BookNowScreen(),
                    ),
 
-                   SizedBox(height: height*0.15),
 
                    // footer
                    Container(

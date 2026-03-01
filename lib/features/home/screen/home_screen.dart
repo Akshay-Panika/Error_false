@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/widget/responsive_font.dart';
+import '../../../core/widget/screen_helper.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -19,8 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, value, child) {
         return Text(
           '$value',
-          style: const TextStyle(
-            fontSize: 30,
+          style:  TextStyle(
+            // fontSize: 30,
+            fontSize: RFont.size(context, 18, tablet: 24, desktop: 30),
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -32,53 +36,104 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        Container(
-          height:  width >=700 ? height*0.8:1000,
-          child: Flex(
-            direction: width >=700 ? Axis.horizontal : Axis.vertical,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
 
 
-                _imageSection(height,width),
-
-
-                _contentSection(height,width)
-
-            ],
-          ),
-        ),
-
-          // if(width <=700 )
-          // SizedBox(height: 20,),
-
-        Container(
-          padding: EdgeInsets.all(width >=700? 10:5,),
-          color: Colors.deepOrangeAccent.withOpacity(0.16),
-          child: Flex(
-            direction: width >=700 ? Axis.horizontal : Axis.vertical,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              if(width >=700 )
-              Text('Akshay Panika', style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.bold,fontSize:50),),
-              Row(
-                spacing: width >=700? 20:5,
-                mainAxisAlignment: MainAxisAlignment.center,
+    if (ScreenHelper.isDesktop(context)) {
+      return Container(
+        height: 650,
+        child: Column(
+          children: [
+            Expanded(
+              child: Row(
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                  _imageSection(),
+                  Expanded(child: _contentSection()),
+                ],
+              ),
+            ),
+            _footer(),
+          ],
+        ),
+      );
+    }
+
+    if (ScreenHelper.isTablet(context)) {
+      return Container(
+        height: 800,
+        child: Column(
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  _imageSection(),
+                  Expanded(child: _contentSection()),
+                ],
+              ),
+            ),
+            _footer(),
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      height: 640,
+      child: Column(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                _imageSection(),
+                Expanded(child: _contentSection()),
+              ],
+            ),
+          ),
+          if (ScreenHelper.isMobile(context))
+          SizedBox(
+            height: 20,
+          ),
+          _footer(),
+        ],
+      ),
+    );
+
+  }
+
+  Widget _footer(){
+    return Container(
+      padding: EdgeInsets.all(10),
+      color: Colors.deepOrangeAccent.withOpacity(0.16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          if(!ScreenHelper.isMobile(context))
+            Expanded(
+              child: Center(
+                child: Text('Akshay Panika', style: TextStyle(color: Colors.deepOrangeAccent,
+                    fontWeight: FontWeight.bold,
+                  fontSize: RFont.size(context, 24, tablet: 36, desktop: 50),
+                ),),
+              ),
+            ),
+            Expanded(
+            child: Row(
+              spacing: 26,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10)
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10)
                     ),
                     child: Row(
                       spacing: 20,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('ACTIVE\nCLINE',style: TextStyle(fontSize: width >=700? 14:12,fontWeight: FontWeight.w600),),
+                        Text('ACTIVE\nCLINE',style: TextStyle(
+                            fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+                            fontWeight: FontWeight.w600),),
                         Container(
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
@@ -94,17 +149,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                ),
+            
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)
                     ),
                     child: Row(
                       spacing: 20,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('SUCCESSFUL\nCOMPLETE PROJECT',style: TextStyle(fontSize: width >=700? 14:12,fontWeight: FontWeight.w600),),
+                        Text('SUCCESSFUL\nCOMPLETE PROJECT',style: TextStyle(
+                            fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+                            fontWeight: FontWeight.w600),),
                         Container(
                           padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
@@ -120,17 +180,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-
-                ],
-              )
-            ],
-          ),
-        ),
-
-      ],
+                ),
+            
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
-  Widget _imageSection(double height,double width,){
+
+  Widget _imageSection(){
     return Expanded(
       child: Stack(
         children: [
@@ -152,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _contentSection(double height,double width){
+  Widget _contentSection(){
     return  Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -168,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   "Let’s Make An",
                   style: TextStyle(
-                    fontSize: width >= 700 ? 45:30,
+                    fontSize: RFont.size(context, 26, tablet: 30, desktop: 40),
                     height: 0,
                     fontWeight: FontWeight.w500,
                   ),
@@ -180,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       "Appointment",
                       style: TextStyle(
-                        fontSize: width >= 700 ? 60:40,
+                        fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
                         height: 0,
                         fontWeight: FontWeight.bold,
                         color: Colors.deepOrangeAccent,
@@ -188,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Text("With",
                       style: TextStyle(
-                        fontSize: width >= 700 ? 60:40,
+                        fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
                         height: 0,
                         fontWeight: FontWeight.w500,
                       ),
@@ -199,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   "Error False, Montor",
                   style: TextStyle(
-                    fontSize: width >= 700 ? 45:30,
+                    fontSize: RFont.size(context, 30, tablet: 38, desktop: 45),
                     height: 0,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -215,7 +275,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 Text(
                   "Drop you requirement we will define it and build the best for you.\nYou can monitor and manage your business with the paltform we will provide.",
                   style: TextStyle(
-                    color: Colors.grey,
+                    color: Colors.grey.shade700,
+                    fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
                   ),
                 ),
                 Row(
