@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget animatedCount(int endValue) {
     return TweenAnimationBuilder<int>(
+      key: ValueKey(endValue),
       tween: IntTween(begin: 0, end: endValue),
       duration: const Duration(seconds: 5),
       builder: (context, value, child) {
@@ -213,117 +214,115 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _contentSection(){
-    return  Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          spacing: 20,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        spacing: 20,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Let’s Make An",
-                  style: TextStyle(
-                    fontSize: RFont.size(context, 26, tablet: 30, desktop: 40),
-                    height: 0,
-                    fontWeight: FontWeight.w500,
-                  ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Let’s Make An",
+                style: TextStyle(
+                  fontSize: RFont.size(context, 26, tablet: 30, desktop: 40),
+                  height: 0,
+                  fontWeight: FontWeight.w500,
                 ),
+              ),
 
-                Row(
-                  spacing: 10,
-                  children: [
-                    Text(
-                      "Appointment",
-                      style: TextStyle(
-                        fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
-                        height: 0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepOrangeAccent,
-                      ),
+              Row(
+                spacing: 10,
+                children: [
+                  Text(
+                    "Appointment",
+                    style: TextStyle(
+                      fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
+                      height: 0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.deepOrangeAccent,
                     ),
-                    Text("With",
+                  ),
+                  Text("With",
+                    style: TextStyle(
+                      fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
+                      height: 0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+
+              Text(
+                "Error False, Montor",
+                style: TextStyle(
+                  fontSize: RFont.size(context, 30, tablet: 38, desktop: 45),
+                  height: 0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+
+          Column(
+            spacing: 20,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Drop you requirement we will define it and build the best for you.\nYou can monitor and manage your business with the paltform we will provide.",
+                style: TextStyle(
+                  color: Colors.grey.shade700,
+                  fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
+                ),
+              ),
+              Row(
+                spacing: 50,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrangeAccent, // button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // radius change kar sakte ho
+                      ),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Book Now',
                       style: TextStyle(
-                        fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
-                        height: 0,
+                        color: Colors.white,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ],
-                ),
-
-                Text(
-                  "Error False, Montor",
-                  style: TextStyle(
-                    fontSize: RFont.size(context, 30, tablet: 38, desktop: 45),
-                    height: 0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
                   ),
-                ),
-              ],
-            ),
 
-            Column(
-              spacing: 20,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Drop you requirement we will define it and build the best for you.\nYou can monitor and manage your business with the paltform we will provide.",
-                  style: TextStyle(
-                    color: Colors.grey.shade700,
-                    fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
-                  ),
-                ),
-                Row(
-                  spacing: 50,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepOrangeAccent, // button color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8), // radius change kar sakte ho
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white, // button color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8), // radius change kar sakte ho
                       ),
-                      onPressed: () {},
-                      child: Text(
-                        'Book Now',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'Learn More',
+                      style: TextStyle(
+                        color: Colors.deepOrangeAccent,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white, // button color
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8), // radius change kar sakte ho
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Learn More',
-                        style: TextStyle(
-                          color: Colors.deepOrangeAccent,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            )
-          ],
-        ),
+                  )
+                ],
+              )
+            ],
+          )
+        ],
       ),
     );
   }
