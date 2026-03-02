@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Container(
-      height: 640,
+      height: 800,
       child: Column(
         children: [
           Expanded(
@@ -88,10 +88,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(child: _contentSection()),
               ],
             ),
-          ),
-          if (ScreenHelper.isMobile(context))
-          SizedBox(
-            height: 20,
           ),
           _footer(),
         ],
@@ -118,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Expanded(
             child: Row(
-              spacing: 26,
+              spacing:ScreenHelper.isMobile(context)? 10: 26,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
@@ -131,8 +127,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       spacing: 20,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ACTIVE\nCLINE',style: TextStyle(
+                        Text('ACTIVE CLINE',style: TextStyle(
                             fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
                             fontWeight: FontWeight.w600),),
                         Container(

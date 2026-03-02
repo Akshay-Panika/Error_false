@@ -12,7 +12,7 @@ class BookNowScreen extends StatelessWidget {
       builder: (context, constraints) {
         if (ScreenHelper.isDesktop(context)) {
           return Container(
-            height: 700,
+            height: 640,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
@@ -27,7 +27,7 @@ class BookNowScreen extends StatelessWidget {
 
         if (ScreenHelper.isTablet(context)) {
           return Container(
-            height: 1000,
+            height: 700,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
@@ -41,7 +41,7 @@ class BookNowScreen extends StatelessWidget {
         }
 
         return Container(
-          height: 1000,
+          height: 700,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
@@ -61,7 +61,8 @@ class BookNowScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 50),
+
+        SizedBox(height: ScreenHelper.isDesktop(context)? 100:50),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,14 +87,16 @@ class BookNowScreen extends StatelessWidget {
 
         const SizedBox(height: 50),
 
-        Container(
-          height: 300,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/service/whatsapp_qr.jpeg'),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/service/whatsapp_qr.jpeg'),
+              ),
             ),
           ),
         ),
+        const SizedBox(height: 50),
       ],
     );
   }
