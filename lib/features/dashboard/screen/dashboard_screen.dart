@@ -193,7 +193,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                    // home
                    Container(
                      key: _homeKey,
-                     child: const HomeScreen(),
+                     child:  HomeScreen(
+                         onBookNowTap: () => _scrollToSection(_bookKey)
+                     ),
                    ),
 
                    // about

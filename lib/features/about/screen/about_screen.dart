@@ -40,6 +40,7 @@ class AboutScreen extends StatelessWidget {
         child:   Column(
           children: [
             Expanded(child: _data(context)),
+            SizedBox(height: 30,),
             Expanded(child: Image.asset('assets/profile/akshay_panika_laptop.png')),
           ],
         )

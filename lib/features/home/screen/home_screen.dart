@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/widget/responsive_font.dart';
 import '../../../core/widget/screen_helper.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback onBookNowTap;
+  const HomeScreen({super.key, required this.onBookNowTap});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -288,7 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 16),
                     ),
-                    onPressed: () {},
+                    onPressed: widget.onBookNowTap,
                     child: Text(
                       'Book Now',
                       style: TextStyle(
@@ -306,7 +308,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       padding: EdgeInsets.symmetric(horizontal: 16),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      const String profileId = "akshay-panika";
+                      const String nativeUrl = "linkedin://profile/$profileId";
+                      const String webUrl = "https://www.linkedin.com/in/$profileId";
+
+                      try {
+                        if (await canLaunchUrl(Uri.parse(nativeUrl))) {
+                          await launchUrl(Uri.parse(nativeUrl));
+                        } else {
+                          await launchUrl(Uri.parse(webUrl));
+                        }
+                      } catch (e) {
+                        // Handle the error if neither works
+                        print("Could not launch LinkedIn: $e");
+                      }
+                    },
                     child: Text(
                       'Learn More',
                       style: TextStyle(
