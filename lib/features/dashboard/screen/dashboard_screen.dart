@@ -24,219 +24,199 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final GlobalKey _bookKey = GlobalKey();
   final GlobalKey _footerKey = GlobalKey();
 
+  /// SAFE SCROLL FUNCTION
   void _scrollToSection(GlobalKey key) {
-    if(MediaQuery.of(context).size.width <= 700)
-    Navigator.pop(context); // drawer close
-    Scrollable.ensureVisible(
-      key.currentContext!,
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.easeInOut,
+    if (!mounted) return; // mounted check for safety
+
+    final isMobile = MediaQuery.of(context).size.width <= 700;
+
+    if (isMobile) {
+      // Close drawer first safely
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+
+        Navigator.of(context).maybePop();
+
+        // small delay ensures drawer is closed
+        Future.delayed(const Duration(milliseconds: 250), () {
+          if (!mounted) return;
+
+          final ctx = key.currentContext;
+          if (ctx != null) {
+            Scrollable.ensureVisible(
+              ctx,
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOut,
+            );
+          }
+        });
+      });
+
+    } else {
+      // Desktop scroll safe
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+
+        final ctx = key.currentContext;
+        if (ctx != null) {
+          Scrollable.ensureVisible(
+            ctx,
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut,
+          );
+        }
+      });
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final height = MediaQuery.of(context).size.height;
+
+        return Scaffold(
+          backgroundColor: Colors.deepOrangeAccent.withOpacity(0.1),
+
+          /// Drawer only on mobile
+          endDrawer: width <= 700
+              ? Drawer(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Material(
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
+                child: SizedBox(
+                  width: 150,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10, right: 16),
+                            child: IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ),
+                        ],
+                      ),
+                      _drawerTile("Home", _homeKey),
+                      _drawerTile("About", _aboutKey),
+                      _drawerTile("Service", _serviceKey),
+                      _drawerTile("Testimonial", _testimonialKey),
+                      _drawerTile("Book Now", _bookKey),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
+              : null,
+
+          body: Column(
+            children: [
+              /// NAVBAR
+              Container(
+                height: height * 0.08,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: width >= 700
+                      ? MainAxisAlignment.spaceAround
+                      : MainAxisAlignment.spaceBetween,
+                  children: [
+                    /// LOGO
+                    InkWell(
+                      onTap: () => _scrollToSection(_homeKey),
+                      child: const Text(
+                        "❗❌",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+
+                    /// DESKTOP MENU
+                    if (width >= 700)
+                      Row(
+                        spacing: 16,
+                        children: [
+                          _menuButton("Home", _homeKey),
+                          _menuButton("About", _aboutKey),
+                          _menuButton("Service", _serviceKey),
+                          _menuButton("Testimonial", _testimonialKey),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.deepOrangeAccent,
+                            ),
+                            onPressed: () => _scrollToSection(_bookKey),
+                            child: const Text(
+                              "Book Now",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          )
+                        ],
+                      ),
+
+                    /// MOBILE MENU BUTTON
+                    if (width <= 700)
+                      Builder(
+                        builder: (context) => IconButton(
+                          icon: const Icon(Icons.menu),
+                          onPressed: () => Scaffold.of(context).openEndDrawer(),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+
+              /// BODY
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  child: Column(
+                    children: [
+                      Container(key: _homeKey, child: HomeScreen(onBookNowTap: () => _scrollToSection(_bookKey))),
+                      Container(key: _aboutKey, child: const AboutScreen()),
+                      Container(key: _serviceKey, child: const ServiceScreen()),
+                      Container(key: _testimonialKey, child: const TestimonialScreen()),
+                      Container(key: _bookKey, child: const BookNowScreen()),
+                      Container(key: _footerKey, child: const FooterScreen()),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.deepOrangeAccent.withOpacity(0.1),
-      endDrawer: Drawer(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-
-        child: Align(
-          alignment: Alignment.topRight,
-          child: Material(
-            color: Colors.white,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              bottomLeft: Radius.circular(12),
-            ),
-            child: SizedBox(
-              width: 150, // 👈 change as needed
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-
-                  /// CLOSE BUTTON
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.close, color: Colors.red),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ],
-                  ),
-
-                  /// MENU ITEMS
-                  ListTile(
-                    title: const Text("Home"),
-                    onTap: () => _scrollToSection(_homeKey),
-                  ),
-                  ListTile(
-                    title: const Text("About"),
-                    onTap: () => _scrollToSection(_aboutKey),
-                  ),
-                  ListTile(
-                    title: const Text("Service"),
-                    onTap: () => _scrollToSection(_serviceKey),
-                  ),
-                  ListTile(
-                    title: const Text("Testimonial"),
-                    onTap: () => _scrollToSection(_testimonialKey),
-                  ),
-                  ListTile(
-                    title: const Text("Book Now"),
-                    onTap: () => _scrollToSection(_bookKey),
-                  ),
-
-                  const SizedBox(height: 10),
-                ],
-              ),
-            ),
-          ),
+  /// MENU BUTTON (Desktop)
+  Widget _menuButton(String title, GlobalKey key) {
+    return TextButton(
+      onPressed: () => _scrollToSection(key),
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.deepOrangeAccent,
+          fontWeight: FontWeight.w600,
         ),
       ),
+    );
+  }
 
-      body: Column(
-         children: [
-           Container(
-             height:  width >=700? height*0.08:height*0.08,
-             padding: EdgeInsets.symmetric(horizontal: 10),
-             // color: Colors.deepOrangeAccent.withOpacity(0.1),
-             child: Row(
-               mainAxisAlignment: width >=700? MainAxisAlignment.spaceAround:MainAxisAlignment.spaceBetween,
-               children: [
-                 InkWell(
-                     onTap: () => _scrollToSection(_homeKey),
-                     child: Text('❗❌', style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),)),
-
-                 if( width >=700 )
-                 Row(
-                   spacing: 20,
-                   children: [
-                     TextButton(
-                       onPressed: () => _scrollToSection(_homeKey),
-                       child: const Text('Home',
-                           style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600)),
-                     ),
-
-                     TextButton(
-                       onPressed: () => _scrollToSection(_aboutKey),
-                       child: const Text('About',
-                           style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600)),
-                     ),
-
-                     TextButton(
-                       onPressed: () => _scrollToSection(_serviceKey),
-                       child: const Text('Service',
-                           style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600)),
-                     ),
-
-                     TextButton(
-                       onPressed: () => _scrollToSection(_testimonialKey),
-                       child: const Text('Testimonial',
-                           style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600)),
-                     ),
-
-                     TextButton(onPressed: (){}, child: Text('Blog',style: TextStyle(color: Colors.deepOrangeAccent,fontWeight: FontWeight.w600),)),
-
-
-                     ElevatedButton(
-                       style: ElevatedButton.styleFrom(
-                         backgroundColor: Colors.deepOrangeAccent, // button color
-                         shape: RoundedRectangleBorder(
-                           borderRadius: BorderRadius.circular(8), // radius change kar sakte ho
-                         ),
-                         padding: EdgeInsets.symmetric(horizontal: 16),
-                       ),
-                       onPressed: () => _scrollToSection(_bookKey),
-                       child: Text(
-                         'Book Now',
-                         style: TextStyle(
-                           color: Colors.white,
-                           fontWeight: FontWeight.w500,
-                         ),
-                       ),
-                     )
-
-                   ],
-                 ),
-
-                 if (width <= 700)
-                   Builder(
-                     builder: (context) => GestureDetector(
-                       onTap: () => Scaffold.of(context).openEndDrawer(),
-                       // onTap: () => Scaffold.of(context).openDrawer(),
-                       child: Container(
-                         padding: const EdgeInsets.all(6),
-                         decoration: BoxDecoration(
-                           color: Colors.deepOrangeAccent,
-                           borderRadius: BorderRadius.circular(5),
-                         ),
-                         child: const Icon(Icons.menu,
-                             color: Colors.white, size: 18),
-                       ),
-                     ),
-                   )
-               ],
-             ),
-           ),
-
-           Expanded(
-             child: SingleChildScrollView(
-               controller: _scrollController,
-               child: Column(
-                 children: [
-
-                   // home
-                   Container(
-                     key: _homeKey,
-                     child:  HomeScreen(
-                         onBookNowTap: () => _scrollToSection(_bookKey)
-                     ),
-                   ),
-
-                   // about
-                   Container(
-                     key: _aboutKey,
-                     child: const AboutScreen(),
-                   ),
-
-
-                   // service
-                   Container(
-                     key: _serviceKey,
-                     child: const ServiceScreen(),
-                   ),
-
-                   // testimonial
-                   Container(
-                     key: _testimonialKey,
-                     child: const TestimonialScreen(),
-                   ),
-
-                   // book
-                   Container(
-                     key: _bookKey,
-                     child: const BookNowScreen(),
-                   ),
-
-
-                   // footer
-                   Container(
-                     key: _footerKey,
-                     child: const FooterScreen(),
-                   ),
-
-                 ],
-               ),
-             ),
-           )
-
-         ],
-       ),
+  /// Drawer Tile (Mobile)
+  Widget _drawerTile(String title, GlobalKey key) {
+    return ListTile(
+      title: Text(title, style: const TextStyle(color: Colors.deepOrangeAccent)),
+      onTap: () => _scrollToSection(key),
     );
   }
 }

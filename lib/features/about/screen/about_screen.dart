@@ -80,7 +80,7 @@ class AboutScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
             color: Colors.grey.shade700,
-            height: 1.6, // better readability
+            height: 1.6,
           ),
         ),
 
