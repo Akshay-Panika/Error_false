@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FooterScreen extends StatelessWidget {
   const FooterScreen({super.key});
@@ -16,10 +19,10 @@ class FooterScreen extends StatelessWidget {
           color: Colors.deepOrangeAccent.withOpacity(0.16),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
           child: isDesktop
-              ? _desktopLayout(isDesktop)
+              ? _desktopLayout(context,isDesktop)
               : isTablet
-              ? _tabletLayout(isDesktop)
-              : _mobileLayout(isDesktop),
+              ? _tabletLayout(context,isDesktop)
+              : _mobileLayout(context,isDesktop),
         );
       },
     );
@@ -27,13 +30,13 @@ class FooterScreen extends StatelessWidget {
 
   // ================= DESKTOP =================
 
-  Widget _desktopLayout(bool isDesktop) {
+  Widget _desktopLayout(BuildContext context,bool isDesktop) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(flex: 2, child: _aboutSection(isDesktop)),
-        Expanded(flex: 2, child: _contactSection(isDesktop)),
+        Expanded(flex: 2, child: _contactSection(context,isDesktop)),
         Expanded(flex: 2, child: _socialSection(isDesktop)),
       ],
     );
@@ -41,13 +44,13 @@ class FooterScreen extends StatelessWidget {
 
   // ================= TABLET =================
 
-  Widget _tabletLayout(bool isDesktop) {
+  Widget _tabletLayout(BuildContext context, bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _aboutSection(isDesktop),
         const SizedBox(height: 40),
-        _contactSection(isDesktop),
+        _contactSection(context,isDesktop),
         const SizedBox(height: 40),
         _socialSection(isDesktop),
       ],
@@ -56,13 +59,13 @@ class FooterScreen extends StatelessWidget {
 
   // ================= MOBILE =================
 
-  Widget _mobileLayout(bool isDesktop) {
+  Widget _mobileLayout(BuildContext context,bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _aboutSection(isDesktop),
         const SizedBox(height: 30),
-        _contactSection(isDesktop),
+        _contactSection(context,isDesktop),
         const SizedBox(height: 30),
         _socialSection(isDesktop),
       ],
@@ -105,7 +108,7 @@ class FooterScreen extends StatelessWidget {
 
   // ================= CONTACT =================
 
-  Widget _contactSection(bool isDesktop) {
+  Widget _contactSection(BuildContext context,bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -123,7 +126,19 @@ class FooterScreen extends StatelessWidget {
         const SizedBox(height: 20),
         _contactItem(Icons.phone, "+91 8989207770"),
         const SizedBox(height: 20),
-        _contactItem(Icons.email, "errorfalse.tech@gmail.com"),
+        InkWell(
+            onTap: () {
+              Clipboard.setData(
+                const ClipboardData(text: "akshey.panika@gmail.com"),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: Colors.deepOrangeAccent,
+                  content: Text("Email copied to clipboard"),
+                ),
+              );
+            },
+            child: _contactItem(Icons.email, "akshey.panika@gmail.com")),
       ],
     );
   }
@@ -167,66 +182,44 @@ class FooterScreen extends StatelessWidget {
         const SizedBox(height: 25),
 
         Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _socialIcon(Icons.facebook),
-            _socialIcon(Icons.circle),
-            _socialIcon(Icons.close), // X icon
-            _socialIcon(Icons.camera_alt), // Instagram placeholder
+            _socialIcon(FontAwesomeIcons.linkedin, () {
+
+              openUrl("https://www.linkedin.com/in/akshey-panika");
+            }),
+            _socialIcon(FontAwesomeIcons.github, () {
+              openUrl("https://github.com/akshay-panika");
+            }),
+            _socialIcon(FontAwesomeIcons.instagram, () {
+              openUrl("https://instagram.com/akshay_panika");
+            }),
           ],
         ),
 
-        const SizedBox(height: 35),
-
-         Text(
-          "NEWSLETTER",
-          style: TextStyle(
-            fontSize: isDesktop ?20:16,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepOrangeAccent,
-          ),
-        ),
-
-        const SizedBox(height: 20),
-
-        Container(
-          height: 55,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            color: Colors.deepOrangeAccent.withOpacity(0.16),
-          ),
-          child: Row(
-            children: [
-              const SizedBox(width: 20),
-               Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Input your email here",
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: const Icon(
-                  Icons.send,
-                  color: Colors.deepOrangeAccent,
-                ),
-              )
-            ],
-          ),
-        )
       ],
     );
   }
 
-  Widget _socialIcon(IconData icon) {
+  Widget _socialIcon(IconData icon, VoidCallback onTap) {
     return Container(
       margin: const EdgeInsets.only(right: 15),
-      child: CircleAvatar(
-        radius: 22,
-        backgroundColor: Colors.deepOrangeAccent.withOpacity(0.16),
-        child: Icon(icon, color: Colors.deepOrangeAccent),
+      child: InkWell(
+        onTap: onTap,
+        child: CircleAvatar(
+          radius: 22,
+          backgroundColor: Colors.deepOrangeAccent.withOpacity(0.16),
+          child: Icon(icon, color: Colors.deepOrangeAccent),
+        ),
       ),
     );
+  }
+}
+
+Future<void> openUrl(String url) async {
+  final Uri uri = Uri.parse(url);
+
+  if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+    throw 'Could not launch $url';
   }
 }

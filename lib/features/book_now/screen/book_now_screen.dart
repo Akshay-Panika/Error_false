@@ -27,7 +27,7 @@ class BookNowScreen extends StatelessWidget {
 
         if (ScreenHelper.isTablet(context)) {
           return Container(
-            height: 700,
+            height: 800,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
@@ -41,7 +41,7 @@ class BookNowScreen extends StatelessWidget {
         }
 
         return Container(
-          height: 700,
+          height: 800,
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
@@ -64,7 +64,7 @@ class BookNowScreen extends StatelessWidget {
 
         SizedBox(height: ScreenHelper.isDesktop(context)? 100:50),
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              Text(
@@ -85,7 +85,7 @@ class BookNowScreen extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 50),
+        const SizedBox(height:20),
 
         Expanded(
           child: Container(
