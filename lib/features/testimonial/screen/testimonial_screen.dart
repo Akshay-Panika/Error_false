@@ -51,7 +51,10 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Expanded(child: _contentSection()),
+                Expanded(child: Padding(
+                  padding:  EdgeInsets.only(left: ScreenHelper.isDesktop(context) ? 120:0),
+                  child: _contentSection(),
+                )),
                 Expanded(child: Image.asset('assets/profile/akshay_panika-removebg-preview.png'))
               ],
             ),
@@ -128,13 +131,15 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                    ],
                  ),
                 const SizedBox(height: 10),
-                Text(
-                  item["text"]!,
-                  style:
-                  TextStyle(
-                    fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
-                    height: 1.6,
-                    color: Colors.grey.shade700,
+                Expanded(
+                  child: Text(
+                    item["text"]!,
+                    style:
+                    TextStyle(
+                      fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
+                      height: 1.6,
+                      color: Colors.grey.shade700,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 25),
@@ -169,8 +174,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
             );
           }).toList(),
         ),
-
-
+        SizedBox(height: 20,),
 
         /// Dots Indicator
         Row(

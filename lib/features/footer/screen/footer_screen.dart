@@ -38,8 +38,8 @@ class FooterScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(flex: 2, child: _aboutSection(context,isDesktop)),
-        Expanded(flex: 2, child: _contactSection(context,isDesktop)),
-        Expanded(flex: 2, child: _socialSection(isDesktop)),
+        Expanded(flex: 1, child: _contactSection(context,isDesktop)),
+        Expanded(flex: 1, child: _socialSection(isDesktop)),
       ],
     );
   }
@@ -95,8 +95,9 @@ class FooterScreen extends StatelessWidget {
           child: Text(
           "Error False creates modern web, mobile, and software solutions for startups and growing businesses. "
           "We focus on scalable development, clean design, and smooth user experiences. "
-          "Our mission is to turn innovative ideas into powerful digital products.",            style: TextStyle(
-              fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+          "Our mission is to turn innovative ideas into powerful digital products.",
+            style: TextStyle(
+            fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
               height: 1.6,
               color: Colors.grey.shade700,
             ),
@@ -121,17 +122,17 @@ class FooterScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 25),
-        _contactItem(Icons.location_on,
+        _contactItem(context,Icons.location_on,
             "Madhya Pradesh, India"),
         const SizedBox(height: 20),
-        _contactItem(Icons.phone, "+91 8989207770"),
+        _contactItem(context,Icons.phone, "+91 8989207770"),
         const SizedBox(height: 20),
-        _contactItem(Icons.email, "errorfalse.tech@gmail.com"),
+        _contactItem(context,Icons.email, "errorfalse.tech@gmail.com"),
       ],
     );
   }
 
-  Widget _contactItem(IconData icon, String text) {
+  Widget _contactItem(BuildContext context,IconData icon, String text) {
     return Row(
       children: [
         CircleAvatar(
@@ -144,7 +145,7 @@ class FooterScreen extends StatelessWidget {
           child: SelectableText(
             text,
             style:  TextStyle(
-              fontSize: 16,
+              fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
               color: Colors.grey.shade700,
             ),
               selectionColor:Colors.white,
@@ -185,7 +186,7 @@ class FooterScreen extends StatelessWidget {
               openUrl("https://github.com/akshay-panika");
             }),
             _socialIcon(FontAwesomeIcons.instagram, () {
-              openUrl("https://instagram.com/akshay_panika");
+              openUrl("https://instagram.com/error_false");
             }),
           ],
         ),

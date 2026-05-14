@@ -19,7 +19,10 @@ class BookNowScreen extends StatelessWidget {
                 Expanded(
                   child: Image.asset('assets/service/akshay_panika_okay.jpeg'),
                 ),
-                Expanded(child: _formSection(context)),
+                Expanded(child: Padding(
+                  padding:  EdgeInsets.only(right: ScreenHelper.isDesktop(context) ? 120:0),
+                  child: _formSection(context),
+                )),
               ],
             ),
           );
@@ -58,8 +61,8 @@ class BookNowScreen extends StatelessWidget {
 
   Widget _formSection(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
 
         SizedBox(height: ScreenHelper.isDesktop(context)? 100:50),
@@ -79,7 +82,7 @@ class BookNowScreen extends StatelessWidget {
             Text(
               "Scan the QR code or click the button below to connect with us directly on WhatsApp.",
               style: TextStyle(
-                  fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+                  fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
                   color: Colors.grey.shade700),
             ),
           ],

@@ -20,7 +20,10 @@ class _AboutScreenState extends State<AboutScreen> {
         padding: EdgeInsets.all(20),
         child:   Row(
           children: [
-            Expanded(child: _data(context)),
+            Expanded(child: Padding(
+              padding:  EdgeInsets.only(left: ScreenHelper.isDesktop(context) ? 120:0),
+              child: _data(context),
+            )),
             Expanded(child: Image.asset('assets/profile/akshay_panika_laptop.png')),
           ],
         )
@@ -82,16 +85,16 @@ class _AboutScreenState extends State<AboutScreen> {
 
 
         Text(
-          'Akshay Panika is the Founder of Error False, a growing digital solutions startup focused on building modern web, mobile, and software applications.\n\n'
-              'With expertise in Flutter, Django, and scalable application development, he helps businesses transform ideas into powerful digital products. His focus is on creating clean UI, smooth user experiences, and reliable performance-driven solutions.\n\n'
+          'Akshay Panika is the Founder of Error False, a growing digital solutions startup focused on building modern web, mobile, and software applications.\n'
+              'With expertise in Flutter, Django, and scalable application development, he helps businesses transform ideas into powerful digital products. His focus is on creating clean UI, smooth user experiences, and reliable performance-driven solutions.\n'
               'From startup projects to business platforms, Akshay is passionate about delivering innovative, user-friendly, and future-ready technology solutions.',
           style: TextStyle(
-            fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+            fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
             color: Colors.grey.shade700,
             height: 1.6,
           ),
         ),
-        SizedBox(height: 50,),
+        SizedBox(height: 40,),
 
         ElevatedButton(
           style: ElevatedButton.styleFrom(

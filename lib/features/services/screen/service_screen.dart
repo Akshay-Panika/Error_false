@@ -138,6 +138,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
           ),
         ),
 
+        //01
         LayoutBuilder(
        builder: (context, constraints) {
 
@@ -148,7 +149,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
             child: Row(
               children: [
                 Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
-                Expanded(child:  _contentSection01(context))
+                Expanded(child:  Padding(
+                  padding:  EdgeInsets.only(right: ScreenHelper.isDesktop(context) ? 120:0),
+                  child: _contentSection01(context),
+                ))
               ],
             ),
           );
@@ -180,6 +184,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
        },
     ),
+
+        //02
         LayoutBuilder(
        builder: (context, constraints) {
 
@@ -189,7 +195,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Expanded(child:  _contentSection02(context)),
+                Expanded(child:  Padding(
+                  padding:  EdgeInsets.only(left: ScreenHelper.isDesktop(context) ? 120:0),
+                  child: _contentSection02(context),
+                )),
                 Expanded(child: Image.asset('assets/service/akshay_panika_back.jpeg')),
               ],
             ),
@@ -222,6 +231,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
        },
     ),
+
+        //03
         LayoutBuilder(
           builder: (context, constraints) {
 
@@ -233,7 +244,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 child: Row(
                   children: [
                     Expanded(child: Image.asset('assets/service/akshay_panika_okay.png')),
-                    Expanded(child:  _contentSection03(context))
+                    Expanded(child:  Padding(
+                      padding:  EdgeInsets.only(right: ScreenHelper.isDesktop(context) ? 120:0),
+                      child: _contentSection03(context),
+                    ))
                   ],
                 ),
               );
@@ -304,7 +318,7 @@ Widget _contentSection01(BuildContext context) {
             'Our goal is to transform innovative ideas into reliable digital products that provide value, performance, and long-term growth for businesses and users.',
         style: TextStyle(
           height: 1.6,
-          fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+          fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
           color: Colors.grey.shade700,
         ),
       ),
@@ -343,7 +357,7 @@ Widget _contentSection02(BuildContext context) {
             'From modern UI/UX design to scalable web and mobile application development, we ensure every solution is reliable, efficient, and performance-driven. '
             'By focusing on innovation, branding, and user experience, we help businesses build a strong digital presence and achieve sustainable growth in today’s competitive market.',
         style: TextStyle(
-          fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+          fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
           height: 1.6,
           color: Colors.grey.shade700,
         ),
@@ -383,7 +397,7 @@ Widget _contentSection03(BuildContext context) {
             'At Error False, we constantly explore modern frameworks, tools, and development practices to stay aligned with industry standards and evolving user expectations. '
             'By solving real-world problems and working on practical projects, we continuously improve our technical expertise, creativity, and ability to deliver future-ready digital experiences.',
         style: TextStyle(
-          fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+          fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
           height: 1.6,
           color: Colors.grey.shade700,
         ),

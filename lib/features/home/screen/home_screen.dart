@@ -272,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-          "Building modern web, mobile & software solutions for growing businesses.\nTurning ideas into scalable digital products with innovation and precision.",                style: TextStyle(
+             "Building modern web, mobile & software solutions for growing businesses.\nTurning ideas into scalable digital products with innovation and precision.",                style: TextStyle(
                   color: Colors.grey.shade700,
                   fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
                 ),
