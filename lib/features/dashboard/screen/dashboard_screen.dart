@@ -182,7 +182,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Column(
                     children: [
                       Container(key: _homeKey, child: HomeScreen(onBookNowTap: () => _scrollToSection(_bookKey))),
-                      Container(key: _aboutKey, child: const AboutScreen()),
+                      Container(key: _aboutKey, child:  AboutScreen(onBookNowTap: () => _scrollToSection(_bookKey))),
                       Container(key: _serviceKey, child: const ServiceScreen()),
                       Container(key: _testimonialKey, child: const TestimonialScreen()),
                       Container(key: _bookKey, child: const BookNowScreen()),

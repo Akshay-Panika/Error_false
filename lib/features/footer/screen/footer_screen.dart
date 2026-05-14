@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../core/widget/responsive_font.dart';
+
 class FooterScreen extends StatelessWidget {
   const FooterScreen({super.key});
 
@@ -35,7 +37,7 @@ class FooterScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(flex: 2, child: _aboutSection(isDesktop)),
+        Expanded(flex: 2, child: _aboutSection(context,isDesktop)),
         Expanded(flex: 2, child: _contactSection(context,isDesktop)),
         Expanded(flex: 2, child: _socialSection(isDesktop)),
       ],
@@ -48,7 +50,7 @@ class FooterScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _aboutSection(isDesktop),
+        _aboutSection(context,isDesktop),
         const SizedBox(height: 40),
         _contactSection(context,isDesktop),
         const SizedBox(height: 40),
@@ -63,7 +65,7 @@ class FooterScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _aboutSection(isDesktop),
+        _aboutSection(context,isDesktop),
         const SizedBox(height: 30),
         _contactSection(context,isDesktop),
         const SizedBox(height: 30),
@@ -74,12 +76,13 @@ class FooterScreen extends StatelessWidget {
 
   // ================= ABOUT =================
 
-  Widget _aboutSection(bool isDesktop) {
+  Widget _aboutSection(BuildContext context,bool isDesktop) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          "Akshay Panika",
+          "Error False",
           style: TextStyle(
             fontSize: isDesktop ? 48 : 30,
             fontWeight: FontWeight.bold,
@@ -88,15 +91,12 @@ class FooterScreen extends StatelessWidget {
         ),
         SizedBox(height: 20),
         Padding(
-          padding: const EdgeInsets.only(right: 25),
+          padding:  EdgeInsets.only(right: 25),
           child: Text(
-            "I am a passionate software developer focused on building modern, "
-                "user-friendly, and scalable applications. I enjoy turning ideas into "
-                "real-world digital products using technologies like Flutter and Django. "
-                "My aim is to create efficient solutions that deliver great user "
-                "experiences while continuously learning and improving my skills.",
-            style: TextStyle(
-              fontSize: isDesktop ? 16 : 14,
+          "Error False creates modern web, mobile, and software solutions for startups and growing businesses. "
+          "We focus on scalable development, clean design, and smooth user experiences. "
+          "Our mission is to turn innovative ideas into powerful digital products.",            style: TextStyle(
+              fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
               height: 1.6,
               color: Colors.grey.shade700,
             ),
@@ -126,19 +126,7 @@ class FooterScreen extends StatelessWidget {
         const SizedBox(height: 20),
         _contactItem(Icons.phone, "+91 8989207770"),
         const SizedBox(height: 20),
-        InkWell(
-            onTap: () {
-              Clipboard.setData(
-                const ClipboardData(text: "akshey.panika@gmail.com"),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  backgroundColor: Colors.deepOrangeAccent,
-                  content: Text("Email copied to clipboard"),
-                ),
-              );
-            },
-            child: _contactItem(Icons.email, "akshey.panika@gmail.com")),
+        _contactItem(Icons.email, "errorfalse.tech@gmail.com"),
       ],
     );
   }
@@ -153,11 +141,16 @@ class FooterScreen extends StatelessWidget {
         ),
         const SizedBox(width: 15),
         Expanded(
-          child: Text(
+          child: SelectableText(
             text,
             style:  TextStyle(
               fontSize: 16,
               color: Colors.grey.shade700,
+            ),
+              selectionColor:Colors.white,
+            toolbarOptions: ToolbarOptions(
+              copy: true,
+              selectAll: true,
             ),
           ),
         ),

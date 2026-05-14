@@ -14,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  final _activeCline = 10;
-  final _completeProject = 20;
+  final _activeCline = 2;
+  final _completeProject = 1;
 
   Widget animatedCount(int endValue) {
     return TweenAnimationBuilder<int>(
@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          if(!ScreenHelper.isMobile(context))
+          if(ScreenHelper.isDesktop(context))
             Expanded(
               child: Center(
                 child: Text('Akshay Panika', style: TextStyle(color: Colors.deepOrangeAccent,
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('ACTIVE CLINE',style: TextStyle(
+                        Text('ACTIVE CLIENTS',style: TextStyle(
                             fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
                             fontWeight: FontWeight.w600),),
                         Container(
@@ -256,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               Text(
-                "Error False, Montor",
+                  "Founder of Error False",
                 style: TextStyle(
                   fontSize: RFont.size(context, 30, tablet: 38, desktop: 45),
                   height: 0,
@@ -272,8 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Drop you requirement we will define it and build the best for you.\nYou can monitor and manage your business with the paltform we will provide.",
-                style: TextStyle(
+          "Building modern web, mobile & software solutions for growing businesses.\nTurning ideas into scalable digital products with innovation and precision.",                style: TextStyle(
                   color: Colors.grey.shade700,
                   fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
                 ),

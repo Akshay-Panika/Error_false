@@ -287,7 +287,7 @@ Widget _contentSection01(BuildContext context) {
       ),
 
       Text(
-        'Passionate Developer\n& Problem Solver',
+      'Modern Digital Solutions',
         style: TextStyle(
           fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           fontWeight: FontWeight.w900,
@@ -299,11 +299,9 @@ Widget _contentSection01(BuildContext context) {
       const SizedBox(height: 20),
 
       Text(
-        'I specialize in building modern, scalable, and user-friendly applications that solve real-world problems. '
-            'With hands-on experience in Flutter and Django, I focus on writing clean, efficient code and delivering '
-            'smooth user experiences. I enjoy transforming ideas into functional products and continuously improving '
-            'my skills by learning new technologies and best practices. My goal is to create impactful digital solutions '
-            'that provide value and meaningful experiences to users.',
+        'At Error False, we specialize in building modern, scalable, and user-friendly digital solutions that solve real-world business challenges. '
+            'With expertise in Flutter, Django, and full-stack development, we focus on writing clean, efficient, and maintainable code while delivering smooth user experiences. '
+            'Our goal is to transform innovative ideas into reliable digital products that provide value, performance, and long-term growth for businesses and users.',
         style: TextStyle(
           height: 1.6,
           fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
@@ -329,7 +327,7 @@ Widget _contentSection02(BuildContext context) {
       ),
 
       Text(
-        'Top Notch\nProfessionals',
+        'Creative Tech Team',
         style: TextStyle(
           fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           fontWeight: FontWeight.w900,
@@ -341,10 +339,9 @@ Widget _contentSection02(BuildContext context) {
       const SizedBox(height: 20),
 
       Text(
-        'We build powerful, scalable, and modern digital solutions tailored to your business needs. '
-            'From crafting strong brand identity to developing high-performance websites and applications, '
-            'our team ensures quality, innovation, and growth. With expert SEO and marketing strategies, '
-            'we help transform your ideas into revenue-generating digital products.',
+        'Our team at Error False combines creativity, strategy, and technical expertise to deliver high-quality digital products tailored to business needs. '
+            'From modern UI/UX design to scalable web and mobile application development, we ensure every solution is reliable, efficient, and performance-driven. '
+            'By focusing on innovation, branding, and user experience, we help businesses build a strong digital presence and achieve sustainable growth in today’s competitive market.',
         style: TextStyle(
           fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
           height: 1.6,
@@ -370,7 +367,7 @@ Widget _contentSection03(BuildContext context) {
       ),
 
       Text(
-        'Continuous Learning\n& Innovation',
+      'Innovation & Growth',
         style: TextStyle(
           fontSize: RFont.size(context, 20, tablet: 30, desktop: 40),
           fontWeight: FontWeight.w900,
@@ -382,11 +379,9 @@ Widget _contentSection03(BuildContext context) {
       const SizedBox(height: 20),
 
       Text(
-        'I believe growth comes from continuous learning and consistent practice. '
-            'I actively explore new technologies, frameworks, and tools to improve my development workflow '
-            'and stay aligned with modern industry standards. By working on real-world projects and solving '
-            'practical problems, I keep enhancing my technical expertise and creativity. My focus is always '
-            'on building efficient, reliable, and user-focused digital experiences.',
+        'We believe continuous learning and innovation are the foundations of long-term success in technology. '
+            'At Error False, we constantly explore modern frameworks, tools, and development practices to stay aligned with industry standards and evolving user expectations. '
+            'By solving real-world problems and working on practical projects, we continuously improve our technical expertise, creativity, and ability to deliver future-ready digital experiences.',
         style: TextStyle(
           fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
           height: 1.6,

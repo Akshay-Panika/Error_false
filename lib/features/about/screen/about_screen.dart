@@ -3,9 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../core/widget/responsive_font.dart';
 import '../../../core/widget/screen_helper.dart';
 
-class AboutScreen extends StatelessWidget {
-  const AboutScreen({super.key});
+class AboutScreen extends StatefulWidget {
+  final VoidCallback onBookNowTap;
+  const AboutScreen({super.key, required this.onBookNowTap});
 
+  @override
+  State<AboutScreen> createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
   @override
   Widget build(BuildContext context) {
     if (ScreenHelper.isDesktop(context)) {
@@ -35,18 +41,17 @@ class AboutScreen extends StatelessWidget {
     }
 
     return Container(
-        height: 700,
+        height: 400,
         padding: EdgeInsets.all(20),
         child:   Column(
           children: [
             Expanded(child: _data(context)),
-            SizedBox(height: 30,),
-            Expanded(child: Image.asset('assets/profile/akshay_panika_laptop.png')),
+            // SizedBox(height: 30,),
+            // Expanded(child: Image.asset('assets/profile/akshay_panika_laptop.png')),
           ],
         )
     );
   }
-
 
   Widget _data(BuildContext context){
     return  Column(
@@ -65,7 +70,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             Text(
-              'Montor',
+              'Founder',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: RFont.size(context, 30, tablet: 40, desktop: 50),
@@ -73,18 +78,19 @@ class AboutScreen extends StatelessWidget {
             ),
           ],
         ),
+        const SizedBox(height: 20),
+
 
         Text(
-          'Akshay Panika is a dedicated and enthusiastic software developer with a strong passion for building practical, user-friendly, and scalable digital solutions. He enjoys turning ideas into real-world applications and has a deep interest in modern development technologies and best practices.\n\n'
-              'With hands-on experience in technologies like Flutter and Django, Akshay focuses on creating clean, efficient, and well-structured applications. He is constantly exploring new tools, improving his problem-solving skills, and learning advanced concepts to stay updated with the evolving tech landscape.\n\n',
+          'Akshay Panika is the Founder of Error False, a growing digital solutions startup focused on building modern web, mobile, and software applications.\n\n'
+              'With expertise in Flutter, Django, and scalable application development, he helps businesses transform ideas into powerful digital products. His focus is on creating clean UI, smooth user experiences, and reliable performance-driven solutions.\n\n'
+              'From startup projects to business platforms, Akshay is passionate about delivering innovative, user-friendly, and future-ready technology solutions.',
           style: TextStyle(
             fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
             color: Colors.grey.shade700,
             height: 1.6,
           ),
         ),
-
-        if(ScreenHelper.isDesktop(context))
         SizedBox(height: 50,),
 
         ElevatedButton(
@@ -95,7 +101,7 @@ class AboutScreen extends StatelessWidget {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 16),
           ),
-          onPressed: () {},
+          onPressed: widget.onBookNowTap,
           child: Text(
             'APPOINTMENT NOW',
             style: TextStyle(

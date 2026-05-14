@@ -18,22 +18,23 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
   final List<Map<String, String>> testimonials = [
     {
       "text":
-      "Very professional team and amazing results! Highly recommended.",
-      "name": "John Doe",
-      "role": "Project Manager"
+      "Error False delivered a modern and scalable solution that perfectly matched our business needs. "
+          "Their team maintained professional communication, clean design, and smooth development throughout the project. "
+          "Highly recommended for reliable web, mobile, and software development services.",
+      "name": "Niraj Mishra",
+      "role": "Fonder Of Ravita Nexus EPC Solutions",
+      "company":"Ravita Nexus EPC Solutions",
     },
     {
       "text":
-      "Outstanding service and great communication throughout the project.",
-      "name": "Sarah Smith",
-      "role": "Business Owner"
+      "Error False provided excellent development support throughout the project. "
+          "Their team helped build and optimize the application with modern design, smooth performance, and reliable solutions. "
+          "Great experience working with a professional and supportive development team.",
+      "name": "Devendra Dewangan",
+      "role": "Full Stack Flutter Developer",
+      "company": "Freelancer",
     },
-    {
-      "text":
-      "Top quality work delivered on time. Will definitely work again.",
-      "name": "Michael Lee",
-      "role": "Entrepreneur"
-    },
+
   ];
 
   @override
@@ -105,7 +106,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
           carouselController: _controller,
           options: CarouselOptions(
            height: 240,
-            autoPlay: true,
+            autoPlay: testimonials.length > 1 ?true: false,
             enlargeCenterPage: false,
             viewportFraction: 1,
             onPageChanged: (index, reason) {
@@ -123,14 +124,18 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                    children: [
                      Icon(Icons.format_quote,
                         size: 30, color: Colors.deepOrangeAccent),
-                     Text('Company Name', style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16),)
+                     Text(item['company'].toString(), style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16),)
                    ],
                  ),
                 const SizedBox(height: 10),
                 Text(
                   item["text"]!,
                   style:
-                  const TextStyle(fontSize: 15, height: 1.5),
+                  TextStyle(
+                    fontSize: RFont.size(context, 12, tablet: 14, desktop: 16),
+                    height: 1.6,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
                 const SizedBox(height: 25),
                 Row(
