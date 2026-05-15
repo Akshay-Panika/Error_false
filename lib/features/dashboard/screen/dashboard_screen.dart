@@ -129,7 +129,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   mainAxisAlignment: width >= 700
-                      ? MainAxisAlignment.spaceAround
+                      ? MainAxisAlignment.spaceBetween
                       : MainAxisAlignment.spaceBetween,
                   children: [
                     /// LOGO
@@ -137,7 +137,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       onTap: () => _scrollToSection(_homeKey),
                       child: const Text(
                         "❗❌",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),
                       ),
                     ),
 

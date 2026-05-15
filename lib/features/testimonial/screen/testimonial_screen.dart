@@ -18,23 +18,18 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
   final List<Map<String, String>> testimonials = [
     {
       "text":
-      "Error False delivered a modern and scalable solution that perfectly matched our business needs. "
-          "Their team maintained professional communication, clean design, and smooth development throughout the project. "
-          "Highly recommended for reliable web, mobile, and software development services.",
+      "Error False delivered a scalable and modern solution with smooth development and professional support throughout the project.",
       "name": "Niraj Mishra",
-      "role": "Fonder Of Ravita Nexus EPC Solutions",
+      "role": "Founder Of Ravita Nexus EPC Solutions",
       "company":"Ravita Nexus EPC Solutions",
     },
     {
       "text":
-      "Error False provided excellent development support throughout the project. "
-          "Their team helped build and optimize the application with modern design, smooth performance, and reliable solutions. "
-          "Great experience working with a professional and supportive development team.",
+      "Error False provided reliable development support with modern design, optimized performance, and a smooth project experience.",
       "name": "Devendra Dewangan",
       "role": "Full Stack Flutter Developer",
       "company": "Freelancer",
     },
-
   ];
 
   @override
@@ -131,15 +126,13 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                    ],
                  ),
                 const SizedBox(height: 10),
-                Expanded(
-                  child: Text(
-                    item["text"]!,
-                    style:
-                    TextStyle(
-                      fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
-                      height: 1.6,
-                      color: Colors.grey.shade700,
-                    ),
+                Text(
+                  item["text"]!,
+                  style:
+                  TextStyle(
+                    fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
+                    height: 1.6,
+                    color: Colors.grey.shade700,
                   ),
                 ),
                 const SizedBox(height: 25),
@@ -193,8 +186,6 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
             );
           }).toList(),
         ),
-
-
 
         /// Arrow Buttons
         Row(
