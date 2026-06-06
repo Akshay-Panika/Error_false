@@ -135,10 +135,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     /// LOGO
                     InkWell(
                       onTap: () => _scrollToSection(_homeKey),
-                      child: const Text(
-                        "❗❌",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),
-                      ),
+                      child: Image.asset('assets/logo/errorfalse_logo.png'),
+                      // child: const Text(
+                      //   "❗❌",
+                      //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepOrangeAccent),
+                      // ),
                     ),
 
                     /// DESKTOP MENU

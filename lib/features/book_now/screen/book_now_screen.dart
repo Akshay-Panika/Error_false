@@ -1,5 +1,6 @@
 import 'package:error_false/core/widget/screen_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../core/widget/responsive_font.dart';
 
 
@@ -80,7 +81,7 @@ class BookNowScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              "Scan the QR code or click the button below to connect with us directly on WhatsApp.",
+              "To connect with us, scan the QR Code or click on the QR Code to contact us directly on WhatsApp.",
               style: TextStyle(
                   fontSize: RFont.size(context, 14, tablet: 15, desktop: 16),
                   color: Colors.grey.shade700),
@@ -91,10 +92,25 @@ class BookNowScreen extends StatelessWidget {
         const SizedBox(height:20),
 
         Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/service/whatsapp_qr.jpeg'),
+          child: InkWell(
+            onTap: () async {
+              final Uri whatsappUri = Uri.parse(
+                // "https://wa.me/918989207770",
+                "https://wa.me/918989207770?text=Hello%20Akshay,%20I%20am%20interested%20in%20your%20services."
+              );
+
+              if (await canLaunchUrl(whatsappUri)) {
+                await launchUrl(
+                  whatsappUri,
+                  mode: LaunchMode.externalApplication,
+                );
+              }
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/service/whatsapp_qr.jpeg'),
+                ),
               ),
             ),
           ),

@@ -123,7 +123,7 @@ class FooterScreen extends StatelessWidget {
         ),
         const SizedBox(height: 25),
         _contactItem(context,Icons.location_on,
-            "Madhya Pradesh, India"),
+            "Singrauli, Madhya Pradesh, India"),
         const SizedBox(height: 20),
         _contactItem(context,Icons.phone, "+91 8989207770"),
         const SizedBox(height: 20),
@@ -182,11 +182,17 @@ class FooterScreen extends StatelessWidget {
 
               openUrl("https://www.linkedin.com/in/akshey-panika");
             }),
-            _socialIcon(FontAwesomeIcons.github, () {
-              openUrl("https://github.com/akshay-panika");
-            }),
+            // _socialIcon(FontAwesomeIcons.github, () {
+            //   openUrl("https://github.com/akshay-panika");
+            // }),
             _socialIcon(FontAwesomeIcons.instagram, () {
               openUrl("https://instagram.com/error_false");
+            }),
+            _socialIcon(FontAwesomeIcons.youtube, () {
+              // openUrl("https://instagram.com/error_false");
+            }),
+            _socialIcon(FontAwesomeIcons.x, () {
+              // openUrl("https://instagram.com/error_false");
             }),
           ],
         ),
@@ -195,7 +201,21 @@ class FooterScreen extends StatelessWidget {
     );
   }
 
-  Widget _socialIcon(IconData icon, VoidCallback onTap) {
+  // Widget _socialIcon(IconData icon, VoidCallback onTap) {
+  //   return Container(
+  //     margin: const EdgeInsets.only(right: 15),
+  //     child: InkWell(
+  //       onTap: onTap,
+  //       child: CircleAvatar(
+  //         radius: 22,
+  //         backgroundColor: Colors.deepOrangeAccent.withOpacity(0.16),
+  //         child: Icon(icon, color: Colors.deepOrangeAccent),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Widget _socialIcon(FaIconData icon, VoidCallback onTap) {
     return Container(
       margin: const EdgeInsets.only(right: 15),
       child: InkWell(
@@ -203,7 +223,10 @@ class FooterScreen extends StatelessWidget {
         child: CircleAvatar(
           radius: 22,
           backgroundColor: Colors.deepOrangeAccent.withOpacity(0.16),
-          child: Icon(icon, color: Colors.deepOrangeAccent),
+          child: FaIcon(
+            icon,
+            color: Colors.deepOrangeAccent,
+          ),
         ),
       ),
     );
